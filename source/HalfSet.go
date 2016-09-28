@@ -2,7 +2,7 @@
 * @Author: Michael
 * @Date:   2016-09-27 11:31:16
 * @Last Modified by:   64509
-* @Last Modified time: 2016-09-29 03:45:55
+* @Last Modified time: 2016-09-29 04:30:55
 */
 
 package main
@@ -34,26 +34,24 @@ func HalfSet(n int, array []int) int {
 }
 
 func readFromFile() int {
-    inputFile := "../testfiles/input.txt"
+    inputFile := "../testfiles/input_halfSet.txt"
     fin, err := os.Open(inputFile)
     defer fin.Close()
     if err != nil {
         panic(err)
     } else {
         buf := make([]byte, 32)
-        num, _ := fin.Read(buf)
-        fmt.Println(string(buf[0]))
-        num, err := strconv.Atoi(string(buf[0]))
+        list, _ := fin.Read(buf)
         if err != nil {
             panic(err)
         } else {
-            return num
+            return buf[:list]
         }
     }
 }
 
 func writeToFile(num int) {
-    outputFile := "../testfiles/output.txt"
+    outputFile := "../testfiles/output_halfSet.txt"
     fout, err := os.Create(outputFile)
     defer fout.Close()
     if err != nil {
