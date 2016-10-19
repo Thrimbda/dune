@@ -1,8 +1,8 @@
 /*
 * @Author: Michael
 * @Date:   2016-09-27 11:31:16
-* @Last Modified by:   64509
-* @Last Modified time: 2016-09-29 04:30:55
+* @Last Modified by:   Michael
+* @Last Modified time: 2016-10-19 21:26:57
 */
 
 package main
@@ -11,6 +11,7 @@ import (
         "fmt"
         "os"
         "strconv"
+        "strings"
 )
 
 func main() {
@@ -40,12 +41,12 @@ func readFromFile() int {
     if err != nil {
         panic(err)
     } else {
-        buf := make([]byte, 32)
+        buf := make([]byte, 64)
         list, _ := fin.Read(buf)
         if err != nil {
             panic(err)
         } else {
-            return buf[:list]
+            strings.Split(string(buf[:list]), " ")
         }
     }
 }
