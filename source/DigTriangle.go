@@ -2,7 +2,7 @@
 * @Author: Michael
 * @Date:   2016-10-19 21:03:39
 * @Last Modified by:   Michael
-* @Last Modified time: 2016-10-19 22:22:18
+* @Last Modified time: 2016-10-19 23:52:09
 */
 
 package main
@@ -14,6 +14,7 @@ import (
         "io"
         "os"
         "strconv"
+        "strings"
 )
 
 func main() {
@@ -21,7 +22,7 @@ func main() {
     num, digTriangle := readFromFile()
     fmt.Println(num)
     fmt.Println(digTriangle)
-    fmt.Println(MaxSum(0, 0, num - 1, digTriangle))
+    writeToFile(MaxSum(0, 0, num - 1, digTriangle))
 }
 
 func MaxSum(i, j, num int, digTriangle [][]int) int {
@@ -52,11 +53,8 @@ func readFromFile() (num int, digTriangle [][]int) {
                     num, _ = strconv.Atoi(string(a))
                     digTriangle = make([][]int, num)
                 } else {
-                    for _, value := range a {
-                        if value == byte(32) {
-                            continue
-                        }
-                        currNum, _ := strconv.Atoi(string(value))
+                    for _, value := range strings.Split(string(a), " ") {
+                        currNum, _ := strconv.Atoi(value)
                         digTriangle[i - 1] = append(digTriangle[i - 1], currNum)
                     }
                 }
