@@ -1,2 +1,3 @@
-# algorithm
-algorithm class practice implements by golang
+# Algorithm & Data Structure
+
+algorithm and data structure practice implement with golang.
