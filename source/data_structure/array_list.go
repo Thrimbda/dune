@@ -4,27 +4,6 @@ import (
 	"fmt"
 )
 
-const (
-	defaultSize = 10
-)
-
-type List interface {
-	clear()
-	insert()
-	append()
-	remove()
-	setFirst()
-	next()
-	prev()
-	length()
-	setPos(pos int)
-	setValue(value interface{})
-	currValue() interface{}
-	isEmpty() bool
-	isInList() bool
-	print()
-}
-
 type Elem interface {
 	key() int
 }
@@ -36,9 +15,9 @@ type ArrayList struct {
 	listArray []interface{}
 }
 
-type ListFullError struct{}
+type FullListError struct{}
 
-func (e ListFullError) Error() string {
+func (e FullListError) Error() string {
 	return "list is full!"
 }
 
@@ -70,7 +49,7 @@ func (a ArrayList) insert(item interface{}) error {
 	// for each function of Array List, we must judge if list is full,
 	// I wonder if there is a way to bind this action to every function.
 	if a.numInList >= a.maxSize {
-		return ListFullError{}
+		return FullListError{}
 	}
 	if !a.isInList() {
 		return BadCurrError{}
@@ -85,7 +64,7 @@ func (a ArrayList) insert(item interface{}) error {
 
 func (a ArrayList) append(item interface{}) error {
 	if a.numInList >= a.maxSize {
-		return ListFullError{}
+		return FullListError{}
 	}
 	a.listArray[a.numInList] = item
 	a.numInList++
