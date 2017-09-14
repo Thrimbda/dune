@@ -1,4 +1,4 @@
-package data_structure
+package list
 
 type List interface {
 	clear()

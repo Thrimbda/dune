@@ -1,4 +1,4 @@
-package data_structure
+package list
 
 type ArrayQueue struct {
 	size int
