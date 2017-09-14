@@ -1,12 +1,12 @@
 package binary_tree
 
 type BinNode interface {
-	element() Elem
+	Element() Elem
 	SetElement(element Elem)
 	Left() BinNode
 	SetLeft(node BinNode)
-	SetRight(node BinNode)
 	Right() BinNode
+	SetRight(node BinNode)
 	isLeaf() bool
 }
 
