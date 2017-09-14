@@ -2,13 +2,13 @@ package list
 
 type List interface {
 	clear()
-	insert()
-	append()
-	remove()
+	insert(item Elem)
+	append(item Elem)
+	remove() Elem
 	setFirst()
 	next()
 	prev()
-	length()
+	length() int
 	setPos(pos int)
 	setValue(value Elem)
 	currValue() Elem
