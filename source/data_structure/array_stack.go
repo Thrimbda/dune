@@ -1,9 +1,5 @@
 package data_structure
 
-import (
-	// "fmt"
-)
-
 type ArrayStack struct {
 	size int
 	top int
