@@ -12,11 +12,11 @@ func (l LinkedStack) clear() {
 	l.top = nil
 }
 
-func (l LinkedStack) push(value interface{}) {
+func (l LinkedStack) push(value Elem) {
 	l.top = &LinkNode{value, l.top, nil}
 }
 
-func (l LinkedStack) pop() (interface{}, error) {
+func (l LinkedStack) pop() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -26,7 +26,7 @@ func (l LinkedStack) pop() (interface{}, error) {
 	return value, nil
 }
 
-func (l LinkedStack) topValue() (interface{}, error) {
+func (l LinkedStack) topValue() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}

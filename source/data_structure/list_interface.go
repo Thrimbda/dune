@@ -10,9 +10,13 @@ type List interface {
 	prev()
 	length()
 	setPos(pos int)
-	setValue(value interface{})
-	currValue() interface{}
+	setValue(value Elem)
+	currValue() Elem
 	isEmpty() bool
 	isInList() bool
 	print()
+}
+
+type Elem interface {
+	key() int
 }

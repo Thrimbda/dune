@@ -3,20 +3,20 @@ package data_structure
 type ArrayStack struct {
 	size int
 	top int
-	listArray []interface{}
+	listArray []Elem
 }
 
 func (a ArrayStack) setup(size int) {
 	a.size = size
 	a.top = 0
-	a.listArray = make([] interface{}, size)
+	a.listArray = make([] Elem, size)
 }
 
 func (a ArrayStack) clear() {
 	a.top = 0
 }
 
-func (a ArrayStack) push(item interface{}) error {
+func (a ArrayStack) push(item Elem) error {
 	if a.top >= a.size {
 		return FullListError{}
 	}
@@ -25,7 +25,7 @@ func (a ArrayStack) push(item interface{}) error {
 	return nil
 }
 
-func (a ArrayStack) pop() (interface{}, error) {
+func (a ArrayStack) pop() (Elem, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -34,7 +34,7 @@ func (a ArrayStack) pop() (interface{}, error) {
 	return value, nil
 }
 
-func (a ArrayStack) topValue() (interface{}, error) {
+func (a ArrayStack) topValue() (Elem, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}

@@ -12,7 +12,7 @@ type LinkedList struct {
 }
 
 type LinkNode struct {
-	value interface{}
+	value Elem
 	prev *LinkNode
 	next *LinkNode
 }
@@ -35,7 +35,7 @@ func (l LinkedList) clear() {
 	l.curr = l.head
 }
 
-func (l LinkedList) insert(value interface{}) error {
+func (l LinkedList) insert(value Elem) error {
 	if l.curr == nil {
 		return NullCurrError{}
 	}
@@ -49,12 +49,12 @@ func (l LinkedList) insert(value interface{}) error {
 	return nil
 }
 
-func (l LinkedList) append(value interface{}) {
+func (l LinkedList) append(value Elem) {
 	l.tail.next = &LinkNode{value, l.tail, nil}
 	l.tail = l.tail.next
 }
 // TODO
-func (l LinkedList) remove() (interface{}, error) {
+func (l LinkedList) remove() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -100,7 +100,7 @@ func (l LinkedList) setPos(pos int) {
 	}
 }
 
-func (l LinkedList) setValue(value interface{}) error {
+func (l LinkedList) setValue(value Elem) error {
 	if l.isInList() {
 		l.curr.next.value = value
 		return nil
@@ -109,7 +109,7 @@ func (l LinkedList) setValue(value interface{}) error {
 	}
 }
 
-func (l LinkedList) currValue() (interface{}, error) {
+func (l LinkedList) currValue() (Elem, error) {
 	if l.isInList() {
 		return l.curr.next.value, nil
 	} else {

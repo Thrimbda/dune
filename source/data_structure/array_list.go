@@ -4,15 +4,11 @@ import (
 	"fmt"
 )
 
-type Elem interface {
-	key() int
-}
-
 type ArrayList struct {
 	maxSize int
 	numInList int
 	curr int
-	listArray []interface{}
+	listArray []Elem
 }
 
 type FullListError struct{}
@@ -37,7 +33,7 @@ func (a ArrayList) setup(size int) {
 	a.maxSize = size
 	a.numInList = 0
 	a.curr = 0
-	a.listArray = make([]interface{}, size)
+	a.listArray = make([]Elem, size)
 }
 
 func (a ArrayList) clear() {
@@ -45,7 +41,7 @@ func (a ArrayList) clear() {
 	a.curr = 0
 }
 
-func (a ArrayList) insert(item interface{}) error {
+func (a ArrayList) insert(item Elem) error {
 	// for each function of Array List, we must judge if list is full,
 	// I wonder if there is a way to bind this action to every function.
 	if a.numInList >= a.maxSize {
@@ -62,7 +58,7 @@ func (a ArrayList) insert(item interface{}) error {
 	return nil
 }
 
-func (a ArrayList) append(item interface{}) error {
+func (a ArrayList) append(item Elem) error {
 	if a.numInList >= a.maxSize {
 		return FullListError{}
 	}
@@ -71,7 +67,7 @@ func (a ArrayList) append(item interface{}) error {
 	return nil
 }
 
-func (a ArrayList) remove() (interface{}, error) {
+func (a ArrayList) remove() (Elem, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -103,7 +99,7 @@ func (a ArrayList) setPos(pos int) {
 	a.curr = pos
 }
 
-func (a ArrayList) setValue(value interface{}) error {
+func (a ArrayList) setValue(value Elem) error {
 	if !a.isInList() {
 		return BadCurrError{}
 	}
@@ -111,7 +107,7 @@ func (a ArrayList) setValue(value interface{}) error {
 	return nil
 }
 
-func (a ArrayList) currValue() (interface{}, error) {
+func (a ArrayList) currValue() (Elem, error) {
 	if a.curr < 0 || a.curr > a.numInList {
 		return nil, BadCurrError{}
 	}
