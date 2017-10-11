@@ -1,9 +1,9 @@
-package binary_tree
+package binarytree
 
 type BinNodePtr struct {
 	element Elem
-	left BinNode
-	right BinNode
+	left    BinNode
+	right   BinNode
 }
 
 func (b BinNodePtr) Element() Elem {
@@ -30,6 +30,6 @@ func (b BinNodePtr) SetRight(node BinNode) {
 	b.right = node
 }
 
-func (b BinNodePtr) isLeaf() bool {
+func (b BinNodePtr) IsLeaf() bool {
 	return b.left == nil && b.right == nil
 }
