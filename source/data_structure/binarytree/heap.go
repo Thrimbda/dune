@@ -1,5 +1,7 @@
 package binarytree
 
+//a max-heap implementation.
+
 type Heap struct {
 	Heap      []Elem
 	size      int
