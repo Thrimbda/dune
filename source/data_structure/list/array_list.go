@@ -5,9 +5,9 @@ import (
 )
 
 type ArrayList struct {
-	maxSize int
+	maxSize   int
 	numInList int
-	curr int
+	curr      int
 	listArray []Elem
 }
 
@@ -51,7 +51,7 @@ func (a ArrayList) insert(item Elem) error {
 		return BadCurrError{}
 	}
 	for i := a.numInList; i > a.curr; i-- {
-		a.listArray[i] = a.listArray[i - 1]
+		a.listArray[i] = a.listArray[i-1]
 	}
 	a.listArray[a.curr] = item
 	a.numInList++
@@ -72,8 +72,8 @@ func (a ArrayList) remove() (Elem, error) {
 		return nil, EmptyListError{}
 	}
 	value := a.listArray[a.curr]
-	for i := a.curr; i < a.numInList - 1; i++ {
-		a.listArray[i] = a.listArray[i + 1]
+	for i := a.curr; i < a.numInList-1; i++ {
+		a.listArray[i] = a.listArray[i+1]
 	}
 	a.numInList--
 	return value, nil
