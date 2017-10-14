@@ -42,7 +42,9 @@ func (h Heap) isLeaf(pos int) bool {
 }
 
 func (h Heap) buildHeap() {
-	return
+	for i := h.numInHeap/2 - 1; i >= 0; i-- {
+		h.shiftDown(i)
+	}
 }
 
 func (h Heap) leftChild(pos int) (int, error) {
