@@ -1,91 +1,65 @@
 package sort
 
 import (
+	"math"
 	"testing"
 )
 
-type nums []int
+type ints []int
 
-func (a nums) Len() int {
-	return len(a)
-}
+func (a ints) Len() int { return len(a) }
 
-func (a nums) Less(i, j int) bool {
-	return a[i] < a[j]
-}
+func (a ints) Less(i, j int) bool { return a[i] < a[j] }
 
-func (a nums) Swap(i, j int) {
-	a[i], a[j] = a[j], a[i]
-}
+func (a ints) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+type float64s []float64
+
+func (a float64s) Len() int { return len(a) }
+
+func (a float64s) Less(i, j int) bool { return a[i] < a[j] || math.IsNaN(a[i]) && !math.IsNaN(a[j]) }
+
+func (a float64s) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+type strings []string
+
+func (a strings) Len() int { return len(a) }
+
+func (a strings) Less(i, j int) bool { return a[i] < a[j] }
+
+func (a strings) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+var intCase = [...]int{1, 0, 0, 0, 654, 12312453, -12312312312, 64, 1563, 65537, -65536}
+
+var float64Case = [...]float64{74.3, 59.0, math.Inf(1), 238.2, -784.0, 2.3, math.NaN(), math.NaN(), math.Inf(-1), 9845.768, -959.7485, 905, 7.8, 7.8}
+
+var stringCase = [...]string{"", "", "", "asd", "qwe", "^&*&^&*", "=-=xc ", " "}
 
 func Test_insertionSort(t *testing.T) {
-	type args struct {
-		data nums
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{"sorted array", args{[]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}},
-		{"anti sorted array", args{[]int{9, 8, 7, 6, 5, 4, 3, 2, 1, 0}}},
-		{"random array", args{[]int{6, 2, 8, 3, 9, 7, 6, 1, 5, 0}}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			data := tt.args.data
-			insertionSort(data)
-			if !IsSorted(data) {
-				t.Errorf("sorted %v", tt.args.data)
-				t.Errorf("   got %v", data)
-			}
-		})
+	data := intCase
+	a := ints(data[0:])
+	insertionSort(a)
+	if !IsSorted(a) {
+		t.Errorf("sorted %v", intCase)
+		t.Errorf("   got %v", data)
 	}
 }
 
 func Test_bubbleSort(t *testing.T) {
-	type args struct {
-		data nums
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{"sorted array", args{[]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}},
-		{"anti sorted array", args{[]int{9, 8, 7, 6, 5, 4, 3, 2, 1, 0}}},
-		{"random array", args{[]int{6, 2, 8, 3, 9, 7, 6, 1, 5, 0}}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			data := tt.args.data
-			bubbleSort(data)
-			if !IsSorted(data) {
-				t.Errorf("sorted %v", tt.args.data)
-				t.Errorf("   got %v", data)
-			}
-		})
+	data := intCase
+	a := ints(data[0:])
+	if !IsSorted(a) {
+		t.Errorf("sorted %v", intCase)
+		t.Errorf("   got %v", data)
 	}
 }
 
 func Test_selectionSort(t *testing.T) {
-	type args struct {
-		data nums
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{"sorted array", args{[]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}},
-		{"anti sorted array", args{[]int{9, 8, 7, 6, 5, 4, 3, 2, 1, 0}}},
-		{"random array", args{[]int{6, 2, 8, 3, 9, 7, 6, 1, 5, 0}}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			data := tt.args.data
-			selectionSort(data)
-			if !IsSorted(data) {
-				t.Errorf("sorted %v", tt.args.data)
-				t.Errorf("   got %v", data)
-			}
-		})
+	data := intCase
+	a := ints(data[0:])
+	selectionSort(a)
+	if !IsSorted(a) {
+		t.Errorf("sorted %v", intCase)
+		t.Errorf("   got %v", data)
 	}
 }
