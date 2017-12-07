@@ -1,5 +1,10 @@
 package binarytree
 
+type BSTNode struct {
+	BinNode
+	p BinNode
+}
+
 type BSTimpl struct {
 	root BinNode
 }
