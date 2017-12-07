@@ -1,26 +1,26 @@
 package binarytree
 
-type BST struct {
+type BSTimpl struct {
 	root BinNode
 }
 
-func (b BST) clear() {
+func (b BSTimpl) clear() {
 	b.root = nil
 }
 
-func (b BST) insert(value Elem) {
+func (b BSTimpl) insert(value Elem) {
 	b.root = insertHelp(b.root, value)
 }
 
-func (b BST) remove(key int) {
+func (b BSTimpl) remove(key int) {
 	b.root = removeHelp(b.root, key)
 }
 
-func (b BST) find(key int) Elem {
+func (b BSTimpl) find(key int) Elem {
 	return findHelp(b.root, key)
 }
 
-func (b BST) isEmpty() bool {
+func (b BSTimpl) isEmpty() bool {
 	return b.root == nil
 }
 
