@@ -4,6 +4,7 @@ type BinNodePtr struct {
 	element Elem
 	left    BinNode
 	right   BinNode
+	parent  BinNode
 }
 
 func (b BinNodePtr) Element() Elem {
@@ -28,6 +29,14 @@ func (b BinNodePtr) Right() BinNode {
 
 func (b BinNodePtr) SetRight(node BinNode) {
 	b.right = node
+}
+
+func (b BinNodePtr) Parent() BinNode {
+	return b.parent
+}
+
+func (b BinNodePtr) SetParent(node BinNode) {
+	b.parent = node
 }
 
 func (b BinNodePtr) IsLeaf() bool {
