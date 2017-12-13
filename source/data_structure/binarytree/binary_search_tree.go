@@ -1,5 +1,7 @@
 package binarytree
 
+import "fmt"
+
 type BSTimpl struct {
 	root BinNode
 }
@@ -8,82 +10,146 @@ func (b BSTimpl) clear() {
 	b.root = nil
 }
 
-func (b BSTimpl) insert(value Elem) {
-	b.root = insertHelp(b.root, value)
+func (b BSTimpl) Insert(value Elem) {
+	// b.root = InsertHelp(b.root, value)
+	var y BinNode
+	x := b.root
+	z := BinNodePtr{value, nil, nil, nil}
+	for x != nil {
+		y = x
+		if z.Element().key() < x.Element().key() {
+			x = x.Left()
+		} else {
+			x = x.Right()
+		}
+	}
+	z.SetParent(y)
+	if y == nil {
+		b.root = z
+	} else if z.Element().key() < y.Element().key() {
+		y.SetLeft(z)
+	} else {
+		y.SetRight(z)
+	}
 }
 
-func (b BSTimpl) remove(key int) {
-	b.root = removeHelp(b.root, key)
+func (b BSTimpl) Delete(key int) {
+	// b.root = DeleteHelp(b.root, key)
+	node := SearchHelp(b.root, key)
+	
+	if node.Left() == nil {
+		b.transplant(node, node.Right())
+	} else if node.Right() == nil {
+		b.transplant(node, node.Left())
+	} else {
+		helper := MinimumHelp(node)
+		if helper.Parent() != node {
+			b.transplant(helper, helper.Right())
+			helper.SetRight(node.Right())
+			helper.Right().SetParent(helper)
+		}
+		b.transplant(node, helper)
+		helper.SetLeft(node.Left())
+		helper.Left().SetParent(helper)
+	}
 }
 
-func (b BSTimpl) find(key int) Elem {
-	return findHelp(b.root, key)
+func (b BSTimpl) Search(key int) BST {
+	return BSTimpl{SearchHelp(b.root, key)}
+}
+
+func SearchHelp(root BinNode, key int) BinNode {
+	node := root
+	for node != nil && key != node.Element().key() {
+		if key < node.Element().key() {
+			node = node.Left()
+		} else {
+			node = node.Right()
+		}
+	}
+	return node
+}
+
+func (b BSTimpl) transplant(u, v BinNode) {
+	if u.Parent() == nil {
+		b.root = v
+	} else if u == u.Parent().Left() {
+		u.Parent().SetLeft(v)
+	} else {
+		u.Parent().SetRight(v)
+	}
+	
+	if v != nil {
+		v.SetParent(u.Parent())
+	}
+}
+
+func (b BSTimpl) Successor() BST {
+	if b.root.Right() != nil {
+		return BSTimpl{b.root.Right()}.Minimum()
+	}
+	helper := b.root
+	successor := b.root.Parent()
+	for successor != nil && helper == successor.Right() {
+		helper = successor
+		successor = successor.Parent()
+	}
+	return BSTimpl{successor}
+}
+
+func (b BSTimpl) Predecessor() BST {
+	if b.root.Left() != nil {
+		return BSTimpl{b.root.Left()}.Maximum()
+	}
+	helper := b.root
+	predecessor := b.root.Parent()
+	for predecessor != nil && helper == predecessor.Left() {
+		helper = predecessor
+		predecessor = predecessor.Parent()
+	}
+	return BSTimpl{predecessor}
+}
+
+func InorderWalkHelp(root BinNode) {
+	if root != nil {
+		InorderWalkHelp(root.Left())
+		fmt.Printf("%d ", root.Element())
+		InorderWalkHelp(root.Right())
+	}
 }
 
 func (b BSTimpl) isEmpty() bool {
 	return b.root == nil
 }
 
-func findHelp(root BinNode, key int) Elem {
-	if root == nil {
-		return nil
-	}
-	item := root.Element()
-	if item.key() > key {
-		return findHelp(root.Left(), key)
-	} else if item.key() == key {
-		return item
-	}
-	return findHelp(root.Right(), key)
+func DeleteHelp(root BinNode, key int) BinNode {
+	return nil
 }
 
-func insertHelp(root BinNode, value Elem) BinNode {
-	if root == nil {
-		return BinNodePtr{value, nil, nil, nil}
-	}
-	item := root.Element()
-	if item.key() > value.key() {
-		root.SetLeft(insertHelp(root.Left(), value))
-	} else {
-		root.SetRight(insertHelp(root.Right(), value))
-	}
-	return root
+func (b BSTimpl) Minimum() BST {
+	return BSTimpl{MinimumHelp(b.root)}
 }
 
-func removeHelp(root BinNode, key int) BinNode {
-	if root == nil {
-		return nil
+func MinimumHelp(root BinNode) BinNode {
+	minTree := root
+	for root.Left() != nil {
+		minTree = root.Left()
 	}
-	item := root.Element()
-	if key > item.key() {
-		root.SetRight(removeHelp(root.Right(), key))
-	} else if key < item.key() {
-		root.SetLeft(removeHelp(root.Left(), key))
-	} else {
-		if root.Left() == nil {
-			root = root.Right()
-		} else if root.Right() == nil {
-			root = root.Left()
-		} else {
-			temp := getMin(root.Right())
-			root.SetRight(deleteMin(root.Right()))
-			root.SetElement(temp)
-		}
-	}
-	return root
+	return minTree
 }
 
-func getMin(root BinNode) Elem {
-	if root.Left() == nil {
-		return root.Element()
-	}
-	return getMin(root.Left())
+func (b BSTimpl) Maximum() BST {
+	return BSTimpl{MaximumHelp(b.root)}
 }
 
-func deleteMin(root BinNode) BinNode {
-	if root.Left() == nil {
-		return root.Right()
+func MaximumHelp(root BinNode) BinNode {
+	maxTree := root
+	for root.Right() != nil {
+		maxTree = root.Right()
 	}
-	root.SetLeft(deleteMin(root.Left()))
-	return root
+	return maxTree
+}
+
+func (b BSTimpl) InorderWalk() {
+	InorderWalkHelp(b.root)
 }

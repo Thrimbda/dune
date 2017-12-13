@@ -18,4 +18,5 @@ type BinNode interface {
 
 type Elem interface {
 	key() int
+	String() string
 }

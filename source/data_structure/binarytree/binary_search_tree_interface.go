@@ -2,10 +2,11 @@ package binarytree
 
 type BST interface {
 	Insert(value Elem)
-	Search(key int) Elem
-	Delete(key int) Elem
+	Search(key int) BST
+	Delete(key int)
 	Predecessor() BST
 	Successor() BST
 	Minimum() BST
 	Maximum() BST
+	InorderWalk()
 }
