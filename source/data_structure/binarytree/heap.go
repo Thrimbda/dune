@@ -76,10 +76,10 @@ func (h Heap) shiftDown(pos int) error {
 	}
 	for !h.isLeaf(pos) {
 		j, _ := h.leftChild(pos)
-		if j < (h.numInHeap-1) && h.Heap[j].key() < h.Heap[j+1].key() {
+		if j < (h.numInHeap-1) && h.Heap[j].Key() < h.Heap[j+1].Key() {
 			j++
 		}
-		if h.Heap[pos].key() >= h.Heap[j].key() {
+		if h.Heap[pos].Key() >= h.Heap[j].Key() {
 			return nil
 		}
 		h.Heap[pos], h.Heap[j] = h.Heap[j], h.Heap[pos]
@@ -96,7 +96,7 @@ func (h Heap) insert(val Elem) error {
 	h.numInHeap++
 	h.Heap[curr] = val
 	parent, _ := h.parent(curr)
-	for curr != 0 && h.Heap[curr].key() > h.Heap[parent].key() {
+	for curr != 0 && h.Heap[curr].Key() > h.Heap[parent].Key() {
 		h.Heap[curr], h.Heap[parent] = h.Heap[parent], h.Heap[curr]
 		parent, _ = h.parent(curr)
 		curr = parent
