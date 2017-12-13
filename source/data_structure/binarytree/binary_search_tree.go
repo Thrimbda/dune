@@ -11,7 +11,6 @@ func (b BSTimpl) clear() {
 }
 
 func (b BSTimpl) Insert(value Elem) {
-	// b.root = InsertHelp(b.root, value)
 	var y BinNode
 	x := b.root
 	z := BinNodePtr{value, nil, nil, nil}
@@ -34,7 +33,6 @@ func (b BSTimpl) Insert(value Elem) {
 }
 
 func (b BSTimpl) Delete(key int) {
-	// b.root = DeleteHelp(b.root, key)
 	node := SearchHelp(b.root, key)
 	
 	if node.Left() == nil {
