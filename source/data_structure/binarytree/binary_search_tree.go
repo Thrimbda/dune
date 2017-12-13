@@ -1,10 +1,5 @@
 package binarytree
 
-type BSTNode struct {
-	BinNode
-	p BinNode
-}
-
 type BSTimpl struct {
 	root BinNode
 }
@@ -44,7 +39,7 @@ func findHelp(root BinNode, key int) Elem {
 
 func insertHelp(root BinNode, value Elem) BinNode {
 	if root == nil {
-		return BinNodePtr{value, nil, nil}
+		return BinNodePtr{value, nil, nil, nil}
 	}
 	item := root.Element()
 	if item.key() > value.key() {
