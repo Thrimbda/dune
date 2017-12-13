@@ -16,7 +16,7 @@ func (b BSTimpl) Insert(value Elem) {
 	z := BinNodePtr{value, nil, nil, nil}
 	for x != nil {
 		y = x
-		if z.Element().key() < x.Element().key() {
+		if z.Element().Key() < x.Element().Key() {
 			x = x.Left()
 		} else {
 			x = x.Right()
@@ -25,15 +25,15 @@ func (b BSTimpl) Insert(value Elem) {
 	z.SetParent(y)
 	if y == nil {
 		b.root = z
-	} else if z.Element().key() < y.Element().key() {
+	} else if z.Element().Key() < y.Element().Key() {
 		y.SetLeft(z)
 	} else {
 		y.SetRight(z)
 	}
 }
 
-func (b BSTimpl) Delete(key int) {
-	node := SearchHelp(b.root, key)
+func (b BSTimpl) Delete(Key int) {
+	node := SearchHelp(b.root, Key)
 	
 	if node.Left() == nil {
 		b.transplant(node, node.Right())
@@ -52,14 +52,14 @@ func (b BSTimpl) Delete(key int) {
 	}
 }
 
-func (b BSTimpl) Search(key int) BST {
-	return BSTimpl{SearchHelp(b.root, key)}
+func (b BSTimpl) Search(Key int) BST {
+	return BSTimpl{SearchHelp(b.root, Key)}
 }
 
-func SearchHelp(root BinNode, key int) BinNode {
+func SearchHelp(root BinNode, Key int) BinNode {
 	node := root
-	for node != nil && key != node.Element().key() {
-		if key < node.Element().key() {
+	for node != nil && Key != node.Element().Key() {
+		if Key < node.Element().Key() {
 			node = node.Left()
 		} else {
 			node = node.Right()
@@ -120,7 +120,7 @@ func (b BSTimpl) isEmpty() bool {
 	return b.root == nil
 }
 
-func DeleteHelp(root BinNode, key int) BinNode {
+func DeleteHelp(root BinNode, Key int) BinNode {
 	return nil
 }
 

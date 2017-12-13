@@ -17,6 +17,6 @@ type BinNode interface {
 // But anyway, for congruity, I've done it in a folly way.
 
 type Elem interface {
-	key() int
+	Key() int
 	String() string
 }
