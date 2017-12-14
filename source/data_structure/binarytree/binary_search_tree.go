@@ -36,15 +36,15 @@ func (b BSTimpl) Delete(Key int) {
 	} else if node.Right() == nil {
 		b.transplant(node, node.Left())
 	} else {
-		helper := MinimumHelp(node)
-		if helper.Parent() != node {
-			b.transplant(helper, helper.Right())
-			helper.SetRight(node.Right())
-			helper.Right().SetParent(helper)
+		replacement := MinimumHelp(node)
+		if replacement.Parent() != node {
+			b.transplant(replacement, replacement.Right())
+			replacement.SetRight(node.Right())
+			replacement.Right().SetParent(replacement)
 		}
-		b.transplant(node, helper)
-		helper.SetLeft(node.Left())
-		helper.Left().SetParent(helper)
+		b.transplant(node, replacement)
+		replacement.SetLeft(node.Left())
+		replacement.Left().SetParent(replacement)
 	}
 }
 
