@@ -75,15 +75,15 @@ type Queue interface {
 
 ```go
 type BinNode interface {
-	Element() Elem
-	SetElement(element Elem)
-	Left() BinNode
-	SetLeft(node BinNode)
-	Right() BinNode
-	SetRight(node BinNode)
-	SetParent(node BinNode)
-	Parent() BinNode
-	IsLeaf() bool
+  Element() Elem
+  SetElement(element Elem)
+  Left() BinNode
+  SetLeft(node BinNode)
+  Right() BinNode
+  SetRight(node BinNode)
+  SetParent(node BinNode)
+  Parent() BinNode
+  IsLeaf() bool
 }
 ```
 
@@ -91,14 +91,14 @@ type BinNode interface {
 
 ```go
 type BST interface {
-	Insert(value Elem)
-	Search(key int) BST
-	Delete(key int)
-	Predecessor() BST //寻找前驱节点
-	Successor() BST //寻找后继
-	Minimum() BST
-	Maximum() BST
-	InorderWalk() //中序遍历
+  Insert(value Elem)
+  Search(key int) BST
+  Delete(key int)
+  Predecessor() BST //寻找前驱节点
+  Successor() BST //寻找后继
+  Minimum() BST
+  Maximum() BST
+  InorderWalk() //中序遍历
 }
 ```
 
