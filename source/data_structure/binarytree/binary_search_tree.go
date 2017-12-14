@@ -53,7 +53,7 @@ func (b BSTimpl) Delete(Key int) {
 }
 
 func (b BSTimpl) Search(Key int) BST {
-	return BSTimpl{SearchHelp(b.root, Key)}
+	return &BSTimpl{SearchHelp(b.root, Key)}
 }
 
 func SearchHelp(root BinNode, Key int) BinNode {
@@ -84,7 +84,7 @@ func (b BSTimpl) transplant(u, v BinNode) {
 
 func (b BSTimpl) Successor() BST {
 	if b.root.Right() != nil {
-		return BSTimpl{b.root.Right()}.Minimum()
+		return &BSTimpl{b.root.Right()}.Minimum()
 	}
 	helper := b.root
 	successor := b.root.Parent()
@@ -92,12 +92,12 @@ func (b BSTimpl) Successor() BST {
 		helper = successor
 		successor = successor.Parent()
 	}
-	return BSTimpl{successor}
+	return &BSTimpl{successor}
 }
 
 func (b BSTimpl) Predecessor() BST {
 	if b.root.Left() != nil {
-		return BSTimpl{b.root.Left()}.Maximum()
+		return &BSTimpl{b.root.Left()}.Maximum()
 	}
 	helper := b.root
 	predecessor := b.root.Parent()
@@ -105,15 +105,7 @@ func (b BSTimpl) Predecessor() BST {
 		helper = predecessor
 		predecessor = predecessor.Parent()
 	}
-	return BSTimpl{predecessor}
-}
-
-func InorderWalkHelp(root BinNode) {
-	if root != nil {
-		InorderWalkHelp(root.Left())
-		fmt.Printf("%d ", root.Element())
-		InorderWalkHelp(root.Right())
-	}
+	return &BSTimpl{predecessor}
 }
 
 func (b BSTimpl) isEmpty() bool {
@@ -125,7 +117,7 @@ func DeleteHelp(root BinNode, Key int) BinNode {
 }
 
 func (b BSTimpl) Minimum() BST {
-	return BSTimpl{MinimumHelp(b.root)}
+	return &BSTimpl{MinimumHelp(b.root)}
 }
 
 func MinimumHelp(root BinNode) BinNode {
@@ -137,7 +129,7 @@ func MinimumHelp(root BinNode) BinNode {
 }
 
 func (b BSTimpl) Maximum() BST {
-	return BSTimpl{MaximumHelp(b.root)}
+	return &BSTimpl{MaximumHelp(b.root)}
 }
 
 func MaximumHelp(root BinNode) BinNode {
@@ -149,5 +141,13 @@ func MaximumHelp(root BinNode) BinNode {
 }
 
 func (b BSTimpl) InorderWalk() {
-	InorderWalkHelp(b.root)
+	inorderWalkHelp(b.root)
+}
+
+func inorderWalkHelp(root BinNode) {
+	if root != nil {
+		inorderWalkHelp(root.Left())
+		fmt.Printf("%s ", root.Element())
+		inorderWalkHelp(root.Right())
+	}
 }
