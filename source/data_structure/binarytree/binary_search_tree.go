@@ -6,29 +6,25 @@ type BSTimpl struct {
 	root BinNode
 }
 
-func (b BSTimpl) clear() {
-	b.root = nil
-}
-
 func (b BSTimpl) Insert(value Elem) {
-	var y BinNode
-	x := b.root
-	z := BinNodePtr{value, nil, nil, nil}
-	for x != nil {
-		y = x
-		if z.Element().Key() < x.Element().Key() {
-			x = x.Left()
+	var father BinNode
+	brother := b.root
+	node := &BinNodePtr{value, nil, nil, nil}
+	for brother != nil {
+		father = brother
+		if node.Element().Key() < brother.Element().Key() {
+			brother = brother.Left()
 		} else {
-			x = x.Right()
+			brother = brother.Right()
 		}
 	}
-	z.SetParent(y)
-	if y == nil {
-		b.root = z
-	} else if z.Element().Key() < y.Element().Key() {
-		y.SetLeft(z)
+	node.SetParent(father)
+	if father == nil {
+		b.root = node
+	} else if node.Element().Key() < father.Element().Key() {
+		father.SetLeft(node)
 	} else {
-		y.SetRight(z)
+		father.SetRight(node)
 	}
 }
 
@@ -52,14 +48,14 @@ func (b BSTimpl) Delete(Key int) {
 	}
 }
 
-func (b BSTimpl) Search(Key int) BST {
-	return &BSTimpl{SearchHelp(b.root, Key)}
+func (b BSTimpl) Search(key int) BST {
+	return &BSTimpl{SearchHelp(b.root, key)}
 }
 
-func SearchHelp(root BinNode, Key int) BinNode {
+func SearchHelp(root BinNode, key int) BinNode {
 	node := root
-	for node != nil && Key != node.Element().Key() {
-		if Key < node.Element().Key() {
+	for node != nil && key != node.Element().Key() {
+		if key < node.Element().Key() {
 			node = node.Left()
 		} else {
 			node = node.Right()
@@ -83,29 +79,37 @@ func (b BSTimpl) transplant(u, v BinNode) {
 }
 
 func (b BSTimpl) Successor() BST {
-	if b.root.Right() != nil {
-		return &BSTimpl{b.root.Right()}.Minimum()
+	return &BSTimpl{SuccessorHelp(b.root)}
+}
+
+func SuccessorHelp(root BinNode) BinNode {
+	if root.Right() != nil {
+		return MinimumHelp(root.Right())
 	}
-	helper := b.root
-	successor := b.root.Parent()
+	helper := root
+	successor := root.Parent()
 	for successor != nil && helper == successor.Right() {
 		helper = successor
 		successor = successor.Parent()
 	}
-	return &BSTimpl{successor}
+	return successor
 }
 
 func (b BSTimpl) Predecessor() BST {
-	if b.root.Left() != nil {
-		return &BSTimpl{b.root.Left()}.Maximum()
+	return &BSTimpl{PredecessorHelp(b.root)}
+}
+
+func PredecessorHelp(root BinNode) BinNode {
+	if root.Left() != nil {
+		return MaximumHelp(root.Left())
 	}
-	helper := b.root
-	predecessor := b.root.Parent()
+	helper := root
+	predecessor := root.Parent()
 	for predecessor != nil && helper == predecessor.Left() {
 		helper = predecessor
 		predecessor = predecessor.Parent()
 	}
-	return &BSTimpl{predecessor}
+	return predecessor
 }
 
 func (b BSTimpl) isEmpty() bool {
