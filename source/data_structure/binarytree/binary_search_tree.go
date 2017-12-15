@@ -1,6 +1,9 @@
 package binarytree
 
-import "fmt"
+import (
+	"fmt"
+	. "../../data_structure"
+)
 
 type BSTimpl struct {
 	root BinNode

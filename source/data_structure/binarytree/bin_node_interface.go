@@ -1,5 +1,9 @@
 package binarytree
 
+import (
+	. "../../data_structure"
+)
+
 type BinNode interface {
 	//interface of BinNode.
 	Element() Elem
@@ -15,8 +19,3 @@ type BinNode interface {
 // It seems like there is no need to create a BinNode interface.
 // And I cannot figure out how to inherit interface in Golang and the point of it.
 // But anyway, for congruity, I've done it in a folly way.
-
-type Elem interface {
-	Key() int
-	String() string
-}

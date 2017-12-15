@@ -2,6 +2,8 @@ package list
 
 import (
 	"fmt"
+	. "../../data_structure"
+	. "../arrayutils"
 )
 
 type ArrayList struct {
@@ -9,24 +11,6 @@ type ArrayList struct {
 	numInList int
 	curr      int
 	listArray []Elem
-}
-
-type FullListError struct{}
-
-func (e FullListError) Error() string {
-	return "list is full!"
-}
-
-type BadCurrError struct{}
-
-func (e BadCurrError) Error() string {
-	return "bad current pointer position."
-}
-
-type EmptyListError struct{}
-
-func (e EmptyListError) Error() string {
-	return "list is empty!"
 }
 
 func (a ArrayList) setup(size int) {

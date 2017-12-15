@@ -1,5 +1,9 @@
 package binarytree
 
+import (
+	. "../../data_structure"
+)
+
 type BST interface {
 	Insert(value Elem)
 	Search(key int) BST

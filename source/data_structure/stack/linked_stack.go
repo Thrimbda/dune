@@ -1,7 +1,13 @@
-package list
+package stack
+
+import (
+	. "../../data_structure"
+	. "../linkutils"
+	. "../arrayutils"
+)
 
 type LinkedStack struct {
-	top *LinkNode
+	top LinkNode
 }
 
 func (l LinkedStack) setup() {
@@ -13,16 +19,16 @@ func (l LinkedStack) clear() {
 }
 
 func (l LinkedStack) push(value Elem) {
-	l.top = &LinkNode{value, l.top, nil}
+	l.top = NewBaseLinkNode(value, l.top, nil)
 }
 
 func (l LinkedStack) pop() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
-	value := l.top.value
-	l.top = l.top.prev
-	l.top.next = nil
+	value := l.top.Element()
+	l.top = l.top.Prev()
+	l.top.SetNext(nil)
 	return value, nil
 }
 
@@ -30,7 +36,7 @@ func (l LinkedStack) topValue() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
-	return l.top.value, nil
+	return l.top.Element(), nil
 }
 
 func (l LinkedStack) isEmpty() bool {

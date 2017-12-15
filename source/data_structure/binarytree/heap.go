@@ -2,6 +2,10 @@ package binarytree
 
 //a max-heap implementation.
 
+import (
+	. "../../data_structure"
+)
+
 type Heap struct {
 	Heap      []Elem
 	size      int

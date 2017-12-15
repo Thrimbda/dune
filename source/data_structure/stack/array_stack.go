@@ -1,4 +1,9 @@
-package list
+package stack
+
+import (
+	. "../../data_structure"
+	. "../arrayutils"
+)
 
 type ArrayStack struct {
 	size int

@@ -1,4 +1,9 @@
-package list
+package queue
+
+import (
+	. "../../data_structure"
+	. "../arrayutils"
+)
 
 type ArrayQueue struct {
 	size int

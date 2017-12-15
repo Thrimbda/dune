@@ -1,5 +1,9 @@
 package binarytree
 
+import (
+	. "../../data_structure"
+)
+
 type BinNodePtr struct {
 	element Elem
 	left    BinNode

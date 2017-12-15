@@ -1,5 +1,9 @@
 package binarytree
 
+import (
+	. "../../data_structure"
+)
+
 type RBNode struct {
 	BinNodePtr
 	color bool

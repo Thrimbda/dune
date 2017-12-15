@@ -1,5 +1,9 @@
 package list
 
+import (
+	. "../../data_structure"
+)
+
 type List interface {
 	clear()
 	insert(item Elem)

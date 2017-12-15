@@ -1,8 +1,13 @@
-package list
+package queue
+
+import (
+	. "../../data_structure"
+	. "../linkuitls"
+)
 
 type LinkedQueue struct {
-	front *LinkNode
-	rear *LinkNode
+	front LinkNode
+	rear LinkNode
 }
 
 func (l LinkedQueue) setup() {
@@ -16,11 +21,11 @@ func (l LinkedQueue) clear() {
 
 func (l LinkedQueue) enqueue(item Elem) {
 	if l.isEmpty() {
-		l.rear = &LinkNode{item, l.rear, nil}
+		l.rear = NewBaseLinkNode(item, l.rear, nil)
 		l.front = l.rear
 	} else {
-		l.rear.next = &LinkNode{item, l.rear, nil}
-		l.rear = l.rear.next	
+		l.rear.SetNext(NewBaseLinkNode(item, l.rear, nil))
+		l.rear = l.rear.Next()
 	}
 }
 
@@ -28,12 +33,12 @@ func (l LinkedQueue) dequeue() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
-	value := l.front.value
-	l.front = l.front.next
+	value := l.front.Element()
+	l.front = l.front.Next()
 	if l.front == nil {
 		l.rear = nil
 	} else {
-		l.front.prev = nil	
+		l.front.SetPrev(nil)	
 	}
 	return value, nil
 }
@@ -42,7 +47,7 @@ func (l LinkedQueue) firstValue() (Elem, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
-	return l.front.value, nil
+	return l.front.Element(), nil
 }
 
 func (l LinkedQueue) isEmpty() bool {
