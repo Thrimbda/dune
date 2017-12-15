@@ -4,6 +4,7 @@ import (
 	"fmt"
 	. "../../datastructure"
 	. "../linkutils"
+	. "../arrayutils"
 )
 
 type LinkedList struct {

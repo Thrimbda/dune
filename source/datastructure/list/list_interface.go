@@ -20,7 +20,3 @@ type List interface {
 	isInList() bool
 	print()
 }
-
-type Elem interface {
-	key() int
-}

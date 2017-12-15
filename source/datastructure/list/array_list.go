@@ -113,9 +113,7 @@ func (a ArrayList) print() {
 		fmt.Print("(")
 		for a.setFirst(); a.isInList(); a.next() {
 			value, _ := a.currValue()
-			if str, ok := value.(string); ok {
-				fmt.Print(string(str) + " ")
-			}
+			fmt.Printf("%s ", value)
 		}
 		fmt.Println(")")
 	}
