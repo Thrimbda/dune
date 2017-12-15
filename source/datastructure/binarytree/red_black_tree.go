@@ -1,7 +1,7 @@
 package binarytree
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type RBNode struct {

@@ -1,4 +1,4 @@
-package data_structure
+package datastructure
 
 type Elem interface {
 	Key() int

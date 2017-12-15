@@ -2,7 +2,7 @@ package binarytree
 
 import (
 	"fmt"
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type BSTimpl struct {

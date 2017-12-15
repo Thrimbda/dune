@@ -1,7 +1,7 @@
 package queue
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 	. "../linkuitls"
 )
 

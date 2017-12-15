@@ -1,7 +1,7 @@
 package stack
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type Stack interface {

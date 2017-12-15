@@ -3,7 +3,7 @@ package binarytree
 //a max-heap implementation.
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type Heap struct {

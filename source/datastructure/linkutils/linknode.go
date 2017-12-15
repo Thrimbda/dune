@@ -1,7 +1,7 @@
 package linkutils
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type LinkNode interface {

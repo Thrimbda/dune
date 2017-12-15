@@ -1,7 +1,7 @@
 package list
 
 import (
-	. "../../data_structure"
+	. "../../datastructure"
 )
 
 type List interface {

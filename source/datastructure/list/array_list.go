@@ -2,7 +2,7 @@ package list
 
 import (
 	"fmt"
-	. "../../data_structure"
+	. "../../datastructure"
 	. "../arrayutils"
 )
 
