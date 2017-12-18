@@ -1,27 +1,28 @@
-package stack
+package arraystack
 
 import (
-	. "../../datastructure"
-	. "../arrayutils"
+	. "../../../datastructure"
+	. "../../arrayutils"
 )
 
-type ArrayStack struct {
+//stack should be a higher layer of list
+type arrayStack struct {
 	size int
 	top int
 	listArray []Elem
 }
 
-func (a ArrayStack) setup(size int) {
+func (a arrayStack) Setup(size int) {
 	a.size = size
 	a.top = 0
 	a.listArray = make([] Elem, size)
 }
 
-func (a ArrayStack) clear() {
+func (a arrayStack) Clear() {
 	a.top = 0
 }
 
-func (a ArrayStack) push(item Elem) error {
+func (a arrayStack) Push(item Elem) error {
 	if a.top >= a.size {
 		return FullListError{}
 	}
@@ -30,8 +31,8 @@ func (a ArrayStack) push(item Elem) error {
 	return nil
 }
 
-func (a ArrayStack) pop() (Elem, error) {
-	if a.isEmpty() {
+func (a arrayStack) Pop() (Elem, error) {
+	if a.IsEmpty() {
 		return nil, EmptyListError{}
 	}
 	a.top--
@@ -39,13 +40,13 @@ func (a ArrayStack) pop() (Elem, error) {
 	return value, nil
 }
 
-func (a ArrayStack) topValue() (Elem, error) {
-	if a.isEmpty() {
+func (a arrayStack) TopValue() (Elem, error) {
+	if a.IsEmpty() {
 		return nil, EmptyListError{}
 	}
 	return a.listArray[a.top - 1], nil
 }
 
-func (a ArrayStack) isEmpty() bool {
+func (a arrayStack) IsEmpty() bool {
 	return a.top == 0
 }

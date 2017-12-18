@@ -1,6 +1,6 @@
 package datastructure
 
 type Elem interface {
-	Key() int
-	String() int
+	LessComparator(b Elem) bool
+	//return true if a < b
 }

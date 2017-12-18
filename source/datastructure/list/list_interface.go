@@ -1,22 +1,13 @@
 package list
 
-import (
-	. "../../datastructure"
-)
-
 type List interface {
-	clear()
-	insert(item Elem)
-	append(item Elem)
-	remove() Elem
-	setFirst()
-	next()
-	prev()
-	length() int
-	setPos(pos int)
-	setValue(value Elem)
-	currValue() Elem
-	isEmpty() bool
-	isInList() bool
-	print()
+	Insert(index int, items ...interface{})
+	Append(items ...interface{})
+	Remove(index int) interface{}
+	Length() int
+	Get(index int) interface{}
+	SetValue(index int, item interface{})
+	Contains(value interface{}) bool
+	Clear()
+	IsEmpty() bool
 }

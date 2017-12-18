@@ -5,10 +5,10 @@ import (
 )
 
 type Stack interface {
-	setup(size int)
-	clear()
-	push(item Elem)
-	pop() Elem
-	topValue() Elem
-	isEmpty() bool
+	Setup(size int)
+	Clear()
+	Push(item Elem)
+	Pop() Elem
+	TopValue() Elem
+	IsEmpty() bool
 }
