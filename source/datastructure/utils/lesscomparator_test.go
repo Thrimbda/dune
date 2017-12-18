@@ -1,8 +1,9 @@
 package utils
 
 import (
-	. "../../datastructure"
 	"testing"
+
+	. "../../datastructure"
 )
 
 func TestStringsLessComparator(t *testing.T) {
@@ -46,7 +47,7 @@ func TestFloat64sLessComparator(t *testing.T) {
 		{-1.1, 1.2, true},
 		{0.0, 0.0, false},
 		{1.123123, 1.1231234, true},
-	}	
+	}
 	for i, testCase := range data {
 		got := Float64sLessComparator(testCase[0], testCase[1])
 		expect := testCase[2]
@@ -59,10 +60,11 @@ func TestFloat64sLessComparator(t *testing.T) {
 type City struct {
 	id int
 }
-func (c City) LessComparator(b Elem) bool {
+
+func (c *City) LessComparator(b Elem) bool {
 	return c.id < b.(*City).id
 }
-func (c City) String() string {
+func (c *City) String() string {
 	return string(c.id)
 }
 
@@ -75,7 +77,7 @@ func TestLessComparator(t *testing.T) {
 		{&City{3}, &City{3}, false},
 		{0, 0, false},
 		{1.123123, 1.1231234, true},
-	}	
+	}
 	for i, testCase := range data {
 		got := LessComparator(testCase[0], testCase[1])
 		expect := testCase[2]
