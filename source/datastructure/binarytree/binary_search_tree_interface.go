@@ -1,11 +1,7 @@
 package binarytree
 
-import (
-	. "../../datastructure"
-)
-
 type BST interface {
-	Insert(value Elem)
+	Insert(value interface{})
 	Search(key int) BST
 	Delete(key int)
 	Predecessor() BST

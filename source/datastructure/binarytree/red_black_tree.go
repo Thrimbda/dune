@@ -1,8 +1,6 @@
 package binarytree
 
-import (
-	. "../../datastructure"
-)
+import "../utils"
 
 type RBNode struct {
 	BinNodePtr
@@ -11,8 +9,9 @@ type RBNode struct {
 
 const (
 	black = true
-	red = false
+	red   = false
 )
+
 // black for black, red for red
 
 func (node RBNode) SetColor(color bool) {
@@ -28,15 +27,16 @@ type RBTree struct {
 }
 
 var RBNil = &RBNode{BinNodePtr{nil, nil, nil, nil}, black}
+
 //should I set the nil as an attribute of a RB-Tree?
 
-func (rbt RBTree) Insert(value Elem) {
+func (rbt RBTree) Insert(value interface{}) {
 	father := RBNil
 	brother := rbt.root
 	node := &RBNode{BinNodePtr{value, RBNil, RBNil, nil}, red}
 	for brother != RBNil {
 		father = brother
-		if node.Element().Key() < brother.Element().Key() {
+		if utils.LessComparator(node.Element(), brother.Element()) {
 			brother = brother.Left().(*RBNode)
 		} else {
 			brother = brother.Right().(*RBNode)
@@ -45,7 +45,7 @@ func (rbt RBTree) Insert(value Elem) {
 	node.SetParent(father)
 	if father == RBNil {
 		rbt.root = node
-	} else if node.Element().Key() < father.Element().Key() {
+	} else if utils.LessComparator(node.Element(), father.Element()) {
 		father.SetLeft(node)
 	} else {
 		father.SetRight(node)

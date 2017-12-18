@@ -2,20 +2,22 @@ package binarytree
 
 import (
 	"fmt"
-	. "../../datastructure"
+	"reflect"
+
+	"../utils"
 )
 
 type BSTimpl struct {
 	root BinNode
 }
 
-func (b BSTimpl) Insert(value Elem) {
+func (b BSTimpl) Insert(value interface{}) {
 	var father BinNode
 	brother := b.root
 	node := &BinNodePtr{value, nil, nil, nil}
 	for brother != nil {
 		father = brother
-		if node.Element().Key() < brother.Element().Key() {
+		if utils.LessComparator(node.Element(), brother.Element()) {
 			brother = brother.Left()
 		} else {
 			brother = brother.Right()
@@ -24,7 +26,7 @@ func (b BSTimpl) Insert(value Elem) {
 	node.SetParent(father)
 	if father == nil {
 		b.root = node
-	} else if node.Element().Key() < father.Element().Key() {
+	} else if utils.LessComparator(node.Element(), father.Element()) {
 		father.SetLeft(node)
 	} else {
 		father.SetRight(node)
@@ -33,7 +35,7 @@ func (b BSTimpl) Insert(value Elem) {
 
 func (b BSTimpl) Delete(Key int) {
 	node := SearchHelp(b.root, Key)
-	
+
 	if node.Left() == nil {
 		b.transplant(node, node.Right())
 	} else if node.Right() == nil {
@@ -57,8 +59,8 @@ func (b BSTimpl) Search(key int) BST {
 
 func SearchHelp(root BinNode, key int) BinNode {
 	node := root
-	for node != nil && key != node.Element().Key() {
-		if key < node.Element().Key() {
+	for node != nil && !reflect.DeepEqual(key, node.Element()) {
+		if utils.LessComparator(key, node.Element()) {
 			node = node.Left()
 		} else {
 			node = node.Right()
@@ -75,7 +77,7 @@ func (b BSTimpl) transplant(u, v BinNode) {
 	} else {
 		u.Parent().SetRight(v)
 	}
-	
+
 	if v != nil {
 		v.SetParent(u.Parent())
 	}

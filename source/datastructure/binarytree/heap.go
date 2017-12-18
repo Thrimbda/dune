@@ -1,13 +1,11 @@
 package binarytree
 
+import "../utils"
+
 //a max-heap implementation.
 
-import (
-	. "../../datastructure"
-)
-
 type Heap struct {
-	Heap      []Elem
+	Heap      []interface{}
 	size      int
 	numInHeap int
 }
@@ -32,7 +30,7 @@ func (e HeapEmptyError) Error() string {
 	return "heap is empty."
 }
 
-func (h Heap) setup(heap []Elem, num int, max int) {
+func (h Heap) setup(heap []interface{}, num int, max int) {
 	h.Heap = heap
 	h.numInHeap = num
 	h.size = max
@@ -80,10 +78,10 @@ func (h Heap) shiftDown(pos int) error {
 	}
 	for !h.isLeaf(pos) {
 		j, _ := h.leftChild(pos)
-		if j < (h.numInHeap-1) && h.Heap[j].Key() < h.Heap[j+1].Key() {
+		if j < (h.numInHeap-1) && utils.LessComparator(h.Heap[j], h.Heap[j+1]) {
 			j++
 		}
-		if h.Heap[pos].Key() >= h.Heap[j].Key() {
+		if !utils.LessComparator(h.Heap[pos], h.Heap[j]) {
 			return nil
 		}
 		h.Heap[pos], h.Heap[j] = h.Heap[j], h.Heap[pos]
@@ -92,7 +90,7 @@ func (h Heap) shiftDown(pos int) error {
 	return nil
 }
 
-func (h Heap) insert(val Elem) error {
+func (h Heap) insert(val interface{}) error {
 	if h.numInHeap >= h.size {
 		return HeapFullError{}
 	}
@@ -100,7 +98,7 @@ func (h Heap) insert(val Elem) error {
 	h.numInHeap++
 	h.Heap[curr] = val
 	parent, _ := h.parent(curr)
-	for curr != 0 && h.Heap[curr].Key() > h.Heap[parent].Key() {
+	for curr != 0 && !utils.LessComparator(h.Heap[curr], h.Heap[parent]) {
 		h.Heap[curr], h.Heap[parent] = h.Heap[parent], h.Heap[curr]
 		parent, _ = h.parent(curr)
 		curr = parent
@@ -108,7 +106,7 @@ func (h Heap) insert(val Elem) error {
 	return nil
 }
 
-func (h Heap) removeMax() (Elem, error) {
+func (h Heap) removeMax() (interface{}, error) {
 	if h.numInHeap <= 0 {
 		return nil, HeapEmptyError{}
 	}
@@ -120,7 +118,7 @@ func (h Heap) removeMax() (Elem, error) {
 	return h.Heap[h.numInHeap], nil
 }
 
-func (h Heap) remove(pos int) (Elem, error) {
+func (h Heap) remove(pos int) (interface{}, error) {
 	if pos <= 0 || pos >= h.numInHeap {
 		return nil, PosILLegalError{"illegal heap position"}
 	}

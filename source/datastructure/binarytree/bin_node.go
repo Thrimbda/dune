@@ -1,21 +1,17 @@
 package binarytree
 
-import (
-	. "../../datastructure"
-)
-
 type BinNodePtr struct {
-	element Elem
+	element interface{}
 	left    BinNode
 	right   BinNode
 	parent  BinNode
 }
 
-func (b BinNodePtr) Element() Elem {
+func (b BinNodePtr) Element() interface{} {
 	return b.element
 }
 
-func (b BinNodePtr) SetElement(element Elem) {
+func (b BinNodePtr) SetElement(element interface{}) {
 	b.element = element
 }
 

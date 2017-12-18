@@ -2,12 +2,13 @@ package queue
 
 import (
 	. "../../datastructure"
-	. "../linkuitls"
+	. "../arrayutils"
+	. "../linkutils"
 )
 
 type LinkedQueue struct {
 	front LinkNode
-	rear LinkNode
+	rear  LinkNode
 }
 
 func (l LinkedQueue) setup() {
@@ -38,7 +39,7 @@ func (l LinkedQueue) dequeue() (Elem, error) {
 	if l.front == nil {
 		l.rear = nil
 	} else {
-		l.front.SetPrev(nil)	
+		l.front.SetPrev(nil)
 	}
 	return value, nil
 }
