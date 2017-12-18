@@ -1,4 +1,4 @@
-package main
+package cpusin
 
 import (
 	"math"
@@ -11,7 +11,7 @@ const (
 	TOTAL_AMPLITUDE = 300
 )
 
-func main() {
+func run() {
 	var busySpan [SAMPLING_COUNT]uint32
 	amplitude := TOTAL_AMPLITUDE / 2
 	radian := 0.0
