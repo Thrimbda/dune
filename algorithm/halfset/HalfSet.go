@@ -47,6 +47,8 @@ func readFromFile() int {
 			panic(err)
 		} else {
 			strings.Split(string(buf[:list]), " ")
+			n, _ := strconv.Atoi(string(buf[:list]))
+			return n
 		}
 	}
 }
