@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/Trimbda/dune/datastructure"
-	. "github.com/Trimbda/dune/datastructure/arrayutils"
+	. "github.com/Thrimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 func TestNewArrayList(t *testing.T) {

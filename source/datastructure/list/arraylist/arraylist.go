@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	. "github.com/Trimbda/dune/datastructure/arrayutils"
+	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 // TODO: growby(n int) resize(cap int) shrink()

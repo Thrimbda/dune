@@ -1,7 +1,7 @@
 package linkutils
 
 import (
-	. "github.com/Trimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure"
 )
 
 type LinkNode interface {

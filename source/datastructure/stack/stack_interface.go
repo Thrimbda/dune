@@ -1,7 +1,7 @@
 package stack
 
 import (
-	. "../../datastructure"
+	. "github.com/Thrimbda/dune/datastructure"
 )
 
 type Stack interface {

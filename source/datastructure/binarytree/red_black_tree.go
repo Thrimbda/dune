@@ -1,7 +1,7 @@
 package binarytree
 
 import (
-	"github.com/Trimbda/dune/datastructure/utils"
+	"github.com/Thrimbda/dune/datastructure/utils"
 )
 
 type RBNode struct {

@@ -1,7 +1,7 @@
 package queue
 
 import (
-	. "github.com/Trimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure"
 )
 
 type Queue interface {

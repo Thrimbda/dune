@@ -1,21 +1,21 @@
 package arraystack
 
 import (
-	. "../../../datastructure"
-	. "../../arrayutils"
+	. "github.com/Thrimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 //stack should be a higher layer of list
 type arrayStack struct {
-	size int
-	top int
+	size      int
+	top       int
 	listArray []Elem
 }
 
 func (a arrayStack) Setup(size int) {
 	a.size = size
 	a.top = 0
-	a.listArray = make([] Elem, size)
+	a.listArray = make([]Elem, size)
 }
 
 func (a arrayStack) Clear() {
@@ -44,7 +44,7 @@ func (a arrayStack) TopValue() (Elem, error) {
 	if a.IsEmpty() {
 		return nil, EmptyListError{}
 	}
-	return a.listArray[a.top - 1], nil
+	return a.listArray[a.top-1], nil
 }
 
 func (a arrayStack) IsEmpty() bool {

@@ -1,8 +1,8 @@
 package queue
 
 import (
-	. "github.com/Trimbda/dune/datastructure"
-	. "github.com/Trimbda/dune/datastructure/arrayutils"
+	. "github.com/Thrimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 type ArrayQueue struct {

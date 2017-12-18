@@ -1,9 +1,9 @@
 package stack
 
 import (
-	. "../../datastructure"
-	. "../linkutils"
-	. "../arrayutils"
+	. "github.com/Thrimbda/dune/datastructure"
+	. "github.com/Thrimbda/dune/datastructure/arrayutils"
+	. "github.com/Thrimbda/dune/datastructure/linkutils"
 )
 
 type LinkedStack struct {
