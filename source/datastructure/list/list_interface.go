@@ -8,6 +8,7 @@ type List interface {
 	Get(index int) interface{}
 	SetValue(index int, item interface{})
 	Contains(value interface{}) bool
+	IndexOf(value interface{}) int
 	Clear()
 	IsEmpty() bool
 }
