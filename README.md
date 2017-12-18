@@ -1,5 +1,7 @@
 # 算法与数据结构
 
+[![Build Status](https://travis-ci.org/Thrimbda/dune.svg?branch=master)](https://travis-ci.org/Thrimbda/dune)
+
 一个用 `Golang`实现的算法与数据结构的.
 
 目前项目正在专注于基础的数据结构实现。
