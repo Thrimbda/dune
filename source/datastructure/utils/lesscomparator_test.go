@@ -3,7 +3,7 @@ package utils
 import (
 	"testing"
 
-	. "../../datastructure"
+	. "github.com/Trimbda/dune/datastructure"
 )
 
 func TestStringsLessComparator(t *testing.T) {

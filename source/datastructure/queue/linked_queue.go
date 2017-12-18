@@ -1,9 +1,9 @@
 package queue
 
 import (
-	. "../../datastructure"
-	. "../arrayutils"
-	. "../linkutils"
+	. "github.com/Trimbda/dune/datastructure"
+	. "github.com/Trimbda/dune/datastructure/arrayutils"
+	. "github.com/Trimbda/dune/datastructure/linkutils"
 )
 
 type LinkedQueue struct {

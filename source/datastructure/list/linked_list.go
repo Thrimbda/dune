@@ -2,16 +2,17 @@ package list
 
 import (
 	"fmt"
-	. "../../datastructure"
-	. "../linkutils"
-	. "../arrayutils"
+
+	. "github.com/Trimbda/dune/datastructure"
+	. "github.com/Trimbda/dune/datastructure/arrayutils"
+	. "github.com/Trimbda/dune/datastructure/linkutils"
 )
 
 type LinkedList struct {
 	numInList int
-	curr LinkNode
-	head LinkNode
-	tail LinkNode
+	curr      LinkNode
+	head      LinkNode
+	tail      LinkNode
 }
 
 func (l LinkedList) setup() {
@@ -44,6 +45,7 @@ func (l LinkedList) append(value Elem) {
 	l.tail.SetNext(NewBaseLinkNode(value, l.tail, nil))
 	l.tail = l.tail.Next()
 }
+
 // TODO
 func (l LinkedList) remove() (Elem, error) {
 	if l.isEmpty() {

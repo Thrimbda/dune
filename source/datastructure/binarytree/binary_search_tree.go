@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"../utils"
+	"github.com/Trimbda/dune/datastructure/utils"
 )
 
 type BSTimpl struct {

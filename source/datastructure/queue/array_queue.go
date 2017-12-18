@@ -1,14 +1,14 @@
 package queue
 
 import (
-	. "../../datastructure"
-	. "../arrayutils"
+	. "github.com/Trimbda/dune/datastructure"
+	. "github.com/Trimbda/dune/datastructure/arrayutils"
 )
 
 type ArrayQueue struct {
-	size int
-	front int
-	rear int
+	size      int
+	front     int
+	rear      int
 	listArray []Elem
 }
 
@@ -25,7 +25,7 @@ func (a ArrayQueue) clear() {
 }
 
 func (a ArrayQueue) enqueue(item Elem) error {
-	if a.rear + 1 % a.size == a.front {
+	if a.rear+1%a.size == a.front {
 		return FullListError{}
 	}
 	a.rear = (a.rear + 1) % a.size
@@ -45,7 +45,7 @@ func (a ArrayQueue) firstValue() (Elem, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
-	return a.listArray[(a.front + 1) % a.size], nil
+	return a.listArray[(a.front+1)%a.size], nil
 }
 
 func (a ArrayQueue) isEmpty() bool {

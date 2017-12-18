@@ -1,8 +1,9 @@
 package utils
 
 import (
-	. "../../datastructure"
 	"strings"
+
+	. "github.com/Trimbda/dune/datastructure"
 )
 
 // // inspired by go std package sort, a comparator only return true if i < j.
@@ -68,7 +69,7 @@ func StringsLessComparator(i, j interface{}) bool {
 }
 
 // TODO: except string, numerical values should be comparable.
-//       e.g. comparing 1 < 1.1 shouldn't trigger a panic but return true. 
+//       e.g. comparing 1 < 1.1 shouldn't trigger a panic but return true.
 
 func IntsLessComparator(i, j interface{}) bool {
 	a := i.(int)

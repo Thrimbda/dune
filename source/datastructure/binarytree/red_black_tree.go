@@ -1,6 +1,8 @@
 package binarytree
 
-import "../utils"
+import (
+	"github.com/Trimbda/dune/datastructure/utils"
+)
 
 type RBNode struct {
 	BinNodePtr

@@ -1,7 +1,7 @@
 package linkutils
 
 import (
-	. "../../datastructure"
+	. "github.com/Trimbda/dune/datastructure"
 )
 
 type LinkNode interface {
@@ -15,8 +15,8 @@ type LinkNode interface {
 
 type linkNodeImpl struct {
 	value Elem
-	prev LinkNode
-	next LinkNode
+	prev  LinkNode
+	next  LinkNode
 }
 
 func (node linkNodeImpl) Element() Elem {
