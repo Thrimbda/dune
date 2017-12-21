@@ -48,6 +48,7 @@ func Test_insertionSort(t *testing.T) {
 func Test_bubbleSort(t *testing.T) {
 	data := intCase
 	a := ints(data[0:])
+	bubbleSort(a)
 	if !IsSorted(a) {
 		t.Errorf("sorted %v", intCase)
 		t.Errorf("   got %v", data)
