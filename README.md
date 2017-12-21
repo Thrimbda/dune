@@ -1,6 +1,7 @@
 # 算法与数据结构
 
 [![Build Status](https://travis-ci.org/Thrimbda/dune.svg?branch=master)](https://travis-ci.org/Thrimbda/dune)
+[![Coverage Status](https://coveralls.io/repos/github/Thrimbda/dune/badge.svg?branch=master)](https://coveralls.io/github/Thrimbda/dune?branch=master)
 
 一个用 `Golang`实现的算法与数据结构的.
 
@@ -12,8 +13,8 @@
 
 ```go
 type Elem interface {
-  Key() int
-  String() string
+	LessComparator(b Elem) bool
+	//return true if a < b
 }
 ```
 
@@ -25,21 +26,16 @@ type Elem interface {
 
 ```go
 type List interface {
-  setup(size int)
-  clear()
-  insert(item Elem)
-  append(item Elem)
-  remove() Elem
-  SetFirst()
-  next()
-  prev()
-  length() int
-  SetPos(pos int)
-  SetValue(value Elem)
-  currValue() Elem
-  isEmpty() bool
-  isInList() bool
-  print()
+	Insert(index int, items ...interface{})
+	Append(items ...interface{})
+	Remove(index int) interface{}
+	Length() int
+	Get(index int) interface{}
+	SetValue(index int, item interface{})
+	Contains(value interface{}) bool
+	IndexOf(value interface{}) int
+	Clear()
+	IsEmpty() bool
 }
 ```
 
