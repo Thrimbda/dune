@@ -1,12 +1,9 @@
 package linkutils
 
-import (
-	. "github.com/Thrimbda/dune/datastructure"
-)
-
+//LinkNode is an interface for
 type LinkNode interface {
-	Element() Elem
-	SetElement(value Elem)
+	Element() interface{}
+	SetElement(value interface{})
 	Prev() LinkNode
 	SetPrev(node LinkNode)
 	Next() LinkNode
@@ -14,16 +11,16 @@ type LinkNode interface {
 }
 
 type linkNodeImpl struct {
-	value Elem
+	value interface{}
 	prev  LinkNode
 	next  LinkNode
 }
 
-func (node linkNodeImpl) Element() Elem {
+func (node linkNodeImpl) Element() interface{} {
 	return node.value
 }
 
-func (node linkNodeImpl) SetElement(value Elem) {
+func (node linkNodeImpl) SetElement(value interface{}) {
 	node.value = value
 }
 
@@ -43,6 +40,6 @@ func (node linkNodeImpl) SetNext(next LinkNode) {
 	node.next = next
 }
 
-func NewBaseLinkNode(value Elem, prev, next LinkNode) LinkNode {
+func NewDoubleLinkNode(value interface{}, prev, next LinkNode) LinkNode {
 	return &linkNodeImpl{value, prev, next}
 }
