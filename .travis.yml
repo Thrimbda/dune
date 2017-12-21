@@ -8,5 +8,5 @@ install:
  - go get github.com/mattn/goveralls
 
 script:
- - go test -v -covermode=count -coverprofile=coverage.out ./datastructure/utils/... ./datastructure/list/arraylist/...
+ - go test -v ./datastructure/utils/... ./datastructure/list/arraylist/... -covermode=count -coverprofile=coverage.out
  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
