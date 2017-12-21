@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/Thrimbda/dune/datastructure"
-	. "github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/datastructure"
+	"github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 func TestNewArrayList(t *testing.T) {
@@ -72,8 +72,8 @@ func TestArrayList_Insert(t *testing.T) {
 	}{
 		{"append_1", &ArrayList{100, 3, make([]interface{}, 3, 100)}, args{[]interface{}{1}, 2}, want{false, 4, 1, 2}, nil},
 		{"append_2", NewArrayList(100), args{[]interface{}{2, 3}, 0}, want{false, 2, 3, 1}, nil},
-		{"panic", NewArrayList(0), args{[]interface{}{1, 1, 1}, 0}, want{false, 3, 1, 0}, &FullListError{}},
-		{"panic", NewArrayList(100), args{[]interface{}{1, 1, 1}, 3}, want{false, 3, 1, 0}, &BadCurrError{}},
+		{"panic", NewArrayList(0), args{[]interface{}{1, 1, 1}, 0}, want{false, 3, 1, 0}, &arrayutils.FullListError{}},
+		{"panic", NewArrayList(100), args{[]interface{}{1, 1, 1}, 3}, want{false, 3, 1, 0}, &arrayutils.BadCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -136,8 +136,8 @@ func TestArrayList_Append(t *testing.T) {
 				}
 			} else {
 				defer func() {
-					if r := recover(); !reflect.DeepEqual(r, &FullListError{}) {
-						t.Errorf("expect %v, but get %v", &FullListError{}, r)
+					if r := recover(); !reflect.DeepEqual(r, &arrayutils.FullListError{}) {
+						t.Errorf("expect %v, but get %v", &arrayutils.FullListError{}, r)
 					}
 				}()
 				tt.a.Append(tt.args.items...)
@@ -179,9 +179,9 @@ func TestArrayList_Remove(t *testing.T) {
 			[]want{
 				want{1, 1, &ArrayList{2, 1, []interface{}{2, 2}}},
 				want{2, 0, &ArrayList{2, 0, []interface{}{2, 2}}},
-			}, testPanic{&BadCurrError{}, 1}},
+			}, testPanic{&arrayutils.BadCurrError{}, 1}},
 		{"panic2", NewArrayList(0), args{[]int{0}},
-			[]want{want{0, 0, NewArrayList(0)}}, testPanic{&EmptyListError{}, 0}},
+			[]want{want{0, 0, NewArrayList(0)}}, testPanic{&arrayutils.EmptyListError{}, 0}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -245,7 +245,7 @@ func TestArrayList_SetValue(t *testing.T) {
 	}{
 		{"set1", &ArrayList{3, 3, []interface{}{2, 3, 3}}, args{0, 3}, 3, nil},
 		{"set2", &ArrayList{3, 2, []interface{}{2, 3, 3}}, args{1, 2}, 2, nil},
-		{"panic", NewArrayList(100), args{50, 1}, 1, &BadCurrError{}},
+		{"panic", NewArrayList(100), args{50, 1}, 1, &arrayutils.BadCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -279,7 +279,7 @@ func TestArrayList_Get(t *testing.T) {
 	}{
 		{"set1", &ArrayList{3, 3, []interface{}{2, 3, 3}}, args{0}, 2, nil},
 		{"set2", &ArrayList{3, 2, []interface{}{2, 3, 3}}, args{1}, 3, nil},
-		{"panic", NewArrayList(100), args{50}, 0, &BadCurrError{}},
+		{"panic", NewArrayList(100), args{50}, 0, &arrayutils.BadCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -396,7 +396,7 @@ type City struct {
 	name string
 }
 
-func (c *City) LessComparator(b Elem) bool {
+func (c *City) LessComparator(b datastructure.Elem) bool {
 	return c.id < b.(*City).id
 }
 func (c *City) String() string {

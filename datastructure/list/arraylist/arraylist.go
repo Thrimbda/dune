@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	. "github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
 // TODO: growby(n int) resize(cap int) shrink()
@@ -22,7 +22,7 @@ func NewArrayList(size int) *ArrayList {
 
 func ConvertToLinkedList(size int, listArray ...interface{}) *ArrayList {
 	if size < len(listArray) {
-		panic(&FullListError{})
+		panic(&arrayutils.FullListError{})
 	}
 	arrayList := NewArrayList(size)
 	arrayList.numInList = len(listArray)
@@ -39,10 +39,10 @@ func (a *ArrayList) Insert(index int, items ...interface{}) {
 	// I wonder if there is a way to bind this action to every function.
 	length := len(items)
 	if a.numInList+length >= a.maxSize {
-		panic(&FullListError{})
+		panic(&arrayutils.FullListError{})
 	}
 	if !a.isInList(index) && index != a.numInList {
-		panic(&BadCurrError{})
+		panic(&arrayutils.BadCurrError{})
 	}
 	for i := a.numInList; i > index+length; i-- {
 		a.listArray[i] = a.listArray[i-length]
@@ -56,7 +56,7 @@ func (a *ArrayList) Insert(index int, items ...interface{}) {
 func (a *ArrayList) Append(items ...interface{}) {
 	length := len(items)
 	if a.numInList+length > a.maxSize {
-		panic(&FullListError{})
+		panic(&arrayutils.FullListError{})
 	}
 	for _, item := range items {
 		a.listArray[a.numInList] = item
@@ -66,10 +66,10 @@ func (a *ArrayList) Append(items ...interface{}) {
 
 func (a *ArrayList) Remove(index int) interface{} {
 	if a.IsEmpty() {
-		panic(&EmptyListError{})
+		panic(&arrayutils.EmptyListError{})
 	}
 	if !a.isInList(index) {
-		panic(&BadCurrError{})
+		panic(&arrayutils.BadCurrError{})
 	}
 	value := a.listArray[index]
 	for i := index; i < a.numInList-1; i++ {
@@ -85,14 +85,14 @@ func (a *ArrayList) Length() int {
 
 func (a *ArrayList) SetValue(index int, value interface{}) {
 	if !a.isInList(index) {
-		panic(&BadCurrError{})
+		panic(&arrayutils.BadCurrError{})
 	}
 	a.listArray[index] = value
 }
 
 func (a *ArrayList) Get(index int) interface{} {
 	if index < 0 || index > a.numInList {
-		panic(&BadCurrError{})
+		panic(&arrayutils.BadCurrError{})
 	}
 	return a.listArray[index]
 }
