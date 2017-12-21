@@ -1,26 +1,24 @@
-package list
+package linkedlist
 
 import (
 	"bytes"
 	"fmt"
 	"reflect"
 
-	. "github.com/Thrimbda/dune/datastructure/arrayutils"
-	. "github.com/Thrimbda/dune/datastructure/linkutils"
+	"github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/datastructure/linkutils"
 )
 
 type LinkedList struct {
 	numInList int
-	curr      LinkNode
-	head      LinkNode
-	tail      LinkNode
+	head      linkutils.LinkNode
+	tail      linkutils.LinkNode
 }
 
 func NewLinkedList(size int) *LinkedList {
-	head := NewDoubleLinkNode(nil, nil, nil)
+	head := linkutils.NewDoubleLinkNode(nil, nil, nil)
 	tail := head
-	curr := head
-	return &LinkedList{0, head, tail, curr}
+	return &LinkedList{0, head, tail}
 }
 
 func ConvertToLinkedList(size int, listArray ...interface{}) *LinkedList {
@@ -33,33 +31,32 @@ func (l *LinkedList) Clear() {
 	l.numInList = 0
 	l.head.SetNext(nil)
 	l.tail = l.head
-	l.curr = l.head
 }
 
 func (l *LinkedList) Insert(index int, items ...interface{}) {
 	if !l.isInList(index) && index != l.numInList {
-		panic(&NullCurrError{})
+		panic(&linkutils.NullCurrError{})
 	}
-	l.curr = l.head
+	curr := l.head
 	for i := 0; i < index; i++ {
-		l.curr = l.curr.Next()
+		curr = curr.Next()
 	}
 	for _, item := range items {
-		l.curr.SetNext(NewDoubleLinkNode(item, l.curr, l.curr.Next()))
-		if l.curr.Next().Next() != nil {
-			l.curr.Next().Next().SetPrev(l.curr.Next())
+		curr.SetNext(linkutils.NewDoubleLinkNode(item, curr, curr.Next()))
+		if curr.Next().Next() != nil {
+			curr.Next().Next().SetPrev(curr.Next())
 		}
-		if l.tail == l.curr {
-			l.tail = l.curr.Next()
+		if l.tail == curr {
+			l.tail = curr.Next()
 		}
-		l.curr = l.curr.Next()
+		curr = curr.Next()
 		l.numInList++
 	}
 }
 
 func (l *LinkedList) Append(items ...interface{}) {
 	for _, item := range items {
-		l.tail.SetNext(NewDoubleLinkNode(item, l.tail, nil))
+		l.tail.SetNext(linkutils.NewDoubleLinkNode(item, l.tail, nil))
 		l.tail = l.tail.Next()
 		l.numInList++
 	}
@@ -68,15 +65,24 @@ func (l *LinkedList) Append(items ...interface{}) {
 // TODO
 func (l *LinkedList) Remove(index int) interface{} {
 	if l.IsEmpty() {
-		panic(&EmptyListError{})
+		panic(&arrayutils.EmptyListError{})
 	}
-	l.setPos(index)
-	value := l.curr.Element()
-	l.curr.SetNext(l.curr.Next().Next())
-	if l.curr.Next() == l.tail {
-		l.tail = l.curr
+	if !l.isInList(index) {
+		panic(&linkutils.NullCurrError{})
 	}
+	curr := l.head
+	for i := 0; i < index; i++ {
+		curr = curr.Next()
+	}
+	value := curr.Next().Element()
+	if curr.Next().Next() != nil {
+		curr.Next().Next().SetPrev(curr)
+	} else {
+		l.tail = curr
+	}
+	curr.SetNext(curr.Next().Next())
 	l.numInList--
+	curr = l.head
 	return value
 }
 
@@ -84,33 +90,34 @@ func (l *LinkedList) Length() int {
 	return l.numInList
 }
 
-func (l *LinkedList) setPos(index int) {
-	if !l.isInList(index) {
-		panic(&NullCurrError{})
-	}
-	l.curr = l.head
-	for i := 0; i < index; i++ {
-		l.curr = l.curr.Next()
-	}
-}
-
 func (l *LinkedList) SetValue(index int, value interface{}) {
-	l.setPos(index)
-	l.curr.Next().SetElement(value)
+	if !l.isInList(index) {
+		panic(&linkutils.NullCurrError{})
+	}
+	curr := l.head
+	for i := 0; i < index; i++ {
+		curr = curr.Next()
+	}
+	curr.Next().SetElement(value)
 }
 
 func (l *LinkedList) Get(index int) interface{} {
 	if !l.isInList(index) {
-		// TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		panic(&NullCurrError{})
+		panic(&linkutils.NullCurrError{})
 	}
-	l.setPos(index)
-	return l.curr.Next().Element()
+	if !l.isInList(index) {
+		panic(&linkutils.NullCurrError{})
+	}
+	curr := l.head
+	for i := 0; i < index; i++ {
+		curr = curr.Next()
+	}
+	return curr.Next().Element()
 }
 
 func (l *LinkedList) IndexOf(value interface{}) int {
 	for i, item := 0, l.head.Next(); l.isInList(i); i, item = i+1, item.Next() {
-		if reflect.DeepEqual(item.Next().Element(), value) {
+		if reflect.DeepEqual(item.Element(), value) {
 			return i
 		}
 	}
