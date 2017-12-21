@@ -1,7 +1,6 @@
 package queue
 
 import (
-	. "github.com/Thrimbda/dune/datastructure"
 	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 	. "github.com/Thrimbda/dune/datastructure/linkutils"
 )
