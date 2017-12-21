@@ -3,5 +3,10 @@ go:
  - 1.8
  - 1.9
 
+ install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+
 script:
- - go test -v ./datastructure/utils/... ./datastructure/list/arraylist/...
+ - go test -v -covermode=count -coverprofile=coverage.out ./datastructure/utils/... ./datastructure/list/arraylist/...
+$HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
