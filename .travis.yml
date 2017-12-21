@@ -3,9 +3,9 @@ go:
  - 1.8
  - 1.9
 
- install:
-  - go get golang.org/x/tools/cmd/cover
-  - go get github.com/mattn/goveralls
+install:
+ - go get golang.org/x/tools/cmd/cover
+ - go get github.com/mattn/goveralls
 
 script:
  - go test -v -covermode=count -coverprofile=coverage.out ./datastructure/utils/... ./datastructure/list/arraylist/...
