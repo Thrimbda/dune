@@ -5,7 +5,8 @@ go:
  - tip
 
 install:
+ - go get golang.org/x/tools/cmd/cover
  - go get github.com/mattn/goveralls
 
 script:
- - $HOME/gopath/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN
+ - $HOME/gopath/bin/goveralls ./datastructure/utils/... ./datastructure/list/arraylist/... -service=travis-ci -repotoken $COVERALLS_TOKEN
