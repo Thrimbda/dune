@@ -6,7 +6,7 @@ type List interface {
 	Remove(index int) interface{}
 	Length() int
 	Get(index int) interface{}
-	SetValue(index int, item interface{})
+	SetValue(index int, value interface{})
 	Contains(value interface{}) bool
 	IndexOf(value interface{}) int
 	Clear()

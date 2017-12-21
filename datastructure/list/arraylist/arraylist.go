@@ -3,6 +3,7 @@ package arraylist
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 
 	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
@@ -72,11 +73,11 @@ func (a *ArrayList) Length() int {
 	return a.numInList
 }
 
-func (a *ArrayList) SetValue(index int, item interface{}) {
+func (a *ArrayList) SetValue(index int, value interface{}) {
 	if !a.isInList(index) {
 		panic(&BadCurrError{})
 	}
-	a.listArray[index] = item
+	a.listArray[index] = value
 }
 
 func (a *ArrayList) Get(index int) interface{} {
@@ -88,7 +89,7 @@ func (a *ArrayList) Get(index int) interface{} {
 
 func (a *ArrayList) IndexOf(value interface{}) int {
 	for i := 0; a.isInList(i); i++ {
-		if a.listArray[i] == value {
+		if reflect.DeepEqual(a.listArray[i], value) {
 			return i
 		}
 	}
