@@ -9,4 +9,4 @@ install:
  - go get github.com/mattn/goveralls
 
 script:
- - $HOME/gopath/bin/goveralls ./datastructure/utils/... ./datastructure/list/arraylist/... -service=travis-ci -repotoken $COVERALLS_TOKEN
+ - $HOME/gopath/bin/goveralls -v -service=travis-ci -repotoken $COVERALLS_TOKEN ./datastructure/utils/... ./datastructure/list/arraylist/...
