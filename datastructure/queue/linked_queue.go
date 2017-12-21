@@ -20,17 +20,17 @@ func (l LinkedQueue) clear() {
 	l.setup()
 }
 
-func (l LinkedQueue) enqueue(item Elem) {
+func (l LinkedQueue) enqueue(item interface{}) {
 	if l.isEmpty() {
-		l.rear = NewBaseLinkNode(item, l.rear, nil)
+		l.rear = NewDoubleLinkNode(item, l.rear, nil)
 		l.front = l.rear
 	} else {
-		l.rear.SetNext(NewBaseLinkNode(item, l.rear, nil))
+		l.rear.SetNext(NewDoubleLinkNode(item, l.rear, nil))
 		l.rear = l.rear.Next()
 	}
 }
 
-func (l LinkedQueue) dequeue() (Elem, error) {
+func (l LinkedQueue) dequeue() (interface{}, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -44,7 +44,7 @@ func (l LinkedQueue) dequeue() (Elem, error) {
 	return value, nil
 }
 
-func (l LinkedQueue) firstValue() (Elem, error) {
+func (l LinkedQueue) firstValue() (interface{}, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}

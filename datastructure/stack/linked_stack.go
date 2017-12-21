@@ -1,7 +1,6 @@
 package stack
 
 import (
-	. "github.com/Thrimbda/dune/datastructure"
 	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 	. "github.com/Thrimbda/dune/datastructure/linkutils"
 )
@@ -18,11 +17,11 @@ func (l LinkedStack) clear() {
 	l.top = nil
 }
 
-func (l LinkedStack) push(value Elem) {
-	l.top = NewBaseLinkNode(value, l.top, nil)
+func (l LinkedStack) push(value interface{}) {
+	l.top = NewDoubleLinkNode(value, l.top, nil)
 }
 
-func (l LinkedStack) pop() (Elem, error) {
+func (l LinkedStack) pop() (interface{}, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -32,7 +31,7 @@ func (l LinkedStack) pop() (Elem, error) {
 	return value, nil
 }
 
-func (l LinkedStack) topValue() (Elem, error) {
+func (l LinkedStack) topValue() (interface{}, error) {
 	if l.isEmpty() {
 		return nil, EmptyListError{}
 	}

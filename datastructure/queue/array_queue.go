@@ -1,7 +1,6 @@
 package queue
 
 import (
-	. "github.com/Thrimbda/dune/datastructure"
 	. "github.com/Thrimbda/dune/datastructure/arrayutils"
 )
 
@@ -9,14 +8,14 @@ type ArrayQueue struct {
 	size      int
 	front     int
 	rear      int
-	listArray []Elem
+	listArray []interface{}
 }
 
 func (a ArrayQueue) setup(size int) {
 	a.size = size
 	a.front = 0
 	a.rear = 0
-	a.listArray = make([]Elem, size)
+	a.listArray = make([]interface{}, size)
 }
 
 func (a ArrayQueue) clear() {
@@ -24,7 +23,7 @@ func (a ArrayQueue) clear() {
 	a.rear = 0
 }
 
-func (a ArrayQueue) enqueue(item Elem) error {
+func (a ArrayQueue) enqueue(item interface{}) error {
 	if a.rear+1%a.size == a.front {
 		return FullListError{}
 	}
@@ -33,7 +32,7 @@ func (a ArrayQueue) enqueue(item Elem) error {
 	return nil
 }
 
-func (a ArrayQueue) dequeue() (Elem, error) {
+func (a ArrayQueue) dequeue() (interface{}, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -41,7 +40,7 @@ func (a ArrayQueue) dequeue() (Elem, error) {
 	return a.listArray[a.front], nil
 }
 
-func (a ArrayQueue) firstValue() (Elem, error) {
+func (a ArrayQueue) firstValue() (interface{}, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
