@@ -20,23 +20,23 @@ func (node linkNodeImpl) Element() interface{} {
 	return node.value
 }
 
-func (node linkNodeImpl) SetElement(value interface{}) {
+func (node *linkNodeImpl) SetElement(value interface{}) {
 	node.value = value
 }
 
-func (node linkNodeImpl) Prev() LinkNode {
+func (node *linkNodeImpl) Prev() LinkNode {
 	return node.prev
 }
 
-func (node linkNodeImpl) SetPrev(prev LinkNode) {
+func (node *linkNodeImpl) SetPrev(prev LinkNode) {
 	node.prev = prev
 }
 
-func (node linkNodeImpl) Next() LinkNode {
+func (node *linkNodeImpl) Next() LinkNode {
 	return node.next
 }
 
-func (node linkNodeImpl) SetNext(next LinkNode) {
+func (node *linkNodeImpl) SetNext(next LinkNode) {
 	node.next = next
 }
 

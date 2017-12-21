@@ -20,6 +20,16 @@ func NewArrayList(size int) *ArrayList {
 	return &ArrayList{size, 0, make([]interface{}, size)}
 }
 
+func ConvertToLinkedList(size int, listArray ...interface{}) *ArrayList {
+	if size < len(listArray) {
+		panic(&FullListError{})
+	}
+	arrayList := NewArrayList(size)
+	arrayList.numInList = len(listArray)
+	copy(arrayList.listArray, listArray)
+	return arrayList
+}
+
 func (a *ArrayList) Clear() {
 	a.numInList = 0
 }
@@ -122,9 +132,8 @@ func (a *ArrayList) String() string {
 		if i != a.numInList-1 {
 			buffer.WriteString(fmt.Sprintf("%v, ", value))
 		} else {
-			buffer.WriteString(fmt.Sprintf("%v", value))
+			buffer.WriteString(fmt.Sprintf("%v)", value))
 		}
 	}
-	buffer.WriteString(")")
 	return buffer.String()
 }
