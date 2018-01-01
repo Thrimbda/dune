@@ -1,51 +1,37 @@
 package arraystack
 
 import (
-	. "github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/datastructure/list/arraylist"
 )
 
-//stack should be a higher layer of list
-type arrayStack struct {
-	size      int
-	top       int
-	listArray []interface{}
+type ArrayStack struct {
+	list *arraylist.ArrayList
 }
 
-func (a arrayStack) Setup(size int) {
-	a.size = size
-	a.top = 0
-	a.listArray = make([]interface{}, size)
+func NewArrayStack(size int) *ArrayStack {
+	return &ArrayStack{arraylist.NewArrayList(size)}
 }
 
-func (a arrayStack) Clear() {
-	a.top = 0
+func ConvertToArrayStack(size int, items ...interface{}) *ArrayStack {
+	return &ArrayStack{arraylist.ConvertToArrayList(size, items)}
 }
 
-func (a arrayStack) Push(item interface{}) error {
-	if a.top >= a.size {
-		return FullListError{}
-	}
-	a.listArray[a.top] = item
-	a.top++
-	return nil
+func (a *ArrayStack) Clear() {
+	a.list.Clear()
 }
 
-func (a arrayStack) Pop() (interface{}, error) {
-	if a.IsEmpty() {
-		return nil, EmptyListError{}
-	}
-	a.top--
-	value := a.listArray[a.top]
-	return value, nil
+func (a *ArrayStack) Push(item interface{}) {
+	a.list.Append(item)
 }
 
-func (a arrayStack) TopValue() (interface{}, error) {
-	if a.IsEmpty() {
-		return nil, EmptyListError{}
-	}
-	return a.listArray[a.top-1], nil
+func (a *ArrayStack) Pop() interface{} {
+	return a.list.Remove(a.list.Length() - 1)
 }
 
-func (a arrayStack) IsEmpty() bool {
-	return a.top == 0
+func (a *ArrayStack) Peek() interface{} {
+	return a.list.Get(a.list.Length() - 1)
+}
+
+func (a *ArrayStack) IsEmpty() bool {
+	return a.list.IsEmpty()
 }
