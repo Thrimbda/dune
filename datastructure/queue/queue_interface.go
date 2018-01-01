@@ -1,14 +1,10 @@
 package queue
 
-import (
-	. "github.com/Thrimbda/dune/datastructure"
-)
-
+//Queue interface.
 type Queue interface {
-	setup(size int)
-	clear()
-	enqueue(item Elem)
-	dequeue() Elem
-	firstValue() Elem
-	isEmpty() bool
+	Clear()
+	Enqueue(item interface{})
+	Dequeue() interface{}
+	FirstValue() interface{}
+	IsEmpty() bool
 }

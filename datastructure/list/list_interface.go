@@ -1,5 +1,6 @@
 package list
 
+//List interface which doesn't support resize yet.
 type List interface {
 	Insert(index int, items ...interface{})
 	Append(items ...interface{})
