@@ -20,7 +20,7 @@ func NewArrayList(size int) *ArrayList {
 	return &ArrayList{size, 0, make([]interface{}, 0, size)}
 }
 
-func ConvertToLinkedList(size int, listArray ...interface{}) *ArrayList {
+func ConvertToArrayList(size int, listArray ...interface{}) *ArrayList {
 	if size < len(listArray) {
 		panic(&arrayutils.FullListError{})
 	}
