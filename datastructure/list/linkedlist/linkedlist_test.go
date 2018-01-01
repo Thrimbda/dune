@@ -11,19 +11,15 @@ import (
 )
 
 func TestNewLinkedList(t *testing.T) {
-	type args struct {
-		size int
-	}
 	tests := []struct {
 		name string
-		args args
 		want *LinkedList
 	}{
-		{"empty", args{0}, &LinkedList{0, linkutils.NewDoubleLinkNode(nil, nil, nil), linkutils.NewDoubleLinkNode(nil, nil, nil)}},
+		{"empty", &LinkedList{0, linkutils.NewDoubleLinkNode(nil, nil, nil), linkutils.NewDoubleLinkNode(nil, nil, nil)}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewLinkedList(tt.args.size); !reflect.DeepEqual(got, tt.want) {
+			if got := NewLinkedList(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewLinkedList() = %v, want %v", got, tt.want)
 			}
 		})
@@ -36,8 +32,8 @@ func TestLinkedList_Clear(t *testing.T) {
 		a    *LinkedList
 		want *LinkedList
 	}{
-		{"test1", ConvertToLinkedList(0, 1, 2, 3), NewLinkedList(0)},
-		{"test2", ConvertToLinkedList(0, make([]interface{}, 100, 100)...), NewLinkedList(0)},
+		{"test1", ConvertToLinkedList(1, 2, 3), NewLinkedList()},
+		{"test2", ConvertToLinkedList(make([]interface{}, 100, 100)...), NewLinkedList()},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -70,9 +66,9 @@ func TestLinkedList_Insert(t *testing.T) {
 		want      want
 		testPanic error
 	}{
-		{"append_1", ConvertToLinkedList(3, 1, 3, 4), args{[]interface{}{1}, 2}, want{false, 4, 1, 2}, nil},
-		{"append_2", NewLinkedList(100), args{[]interface{}{2, 3}, 0}, want{false, 2, 3, 1}, nil},
-		{"panic", NewLinkedList(0), args{[]interface{}{1, 1, 1}, 3}, want{false, 3, 1, 0}, &linkutils.NullCurrError{}},
+		{"append_1", ConvertToLinkedList(1, 3, 4), args{[]interface{}{1}, 2}, want{false, 4, 1, 2}, nil},
+		{"append_2", NewLinkedList(), args{[]interface{}{2, 3}, 0}, want{false, 2, 3, 1}, nil},
+		{"panic", NewLinkedList(), args{[]interface{}{1, 1, 1}, 3}, want{false, 3, 1, 0}, &linkutils.NullCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -115,9 +111,9 @@ func TestLinkedList_Append(t *testing.T) {
 		args args
 		want want
 	}{
-		{"append_1", NewLinkedList(100), args{[]interface{}{1}}, want{false, 1, 1, 0}},
-		{"append_2", NewLinkedList(100), args{[]interface{}{2, 3}}, want{false, 2, 3, 1}},
-		{"appended", ConvertToLinkedList(3, 1, 2, 4), args{[]interface{}{1, 1, 1}}, want{false, 6, 1, 0}},
+		{"append_1", NewLinkedList(), args{[]interface{}{1}}, want{false, 1, 1, 0}},
+		{"append_2", NewLinkedList(), args{[]interface{}{2, 3}}, want{false, 2, 3, 1}},
+		{"appended", ConvertToLinkedList(1, 2, 4), args{[]interface{}{1, 1, 1}}, want{false, 6, 1, 0}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -155,22 +151,22 @@ func TestLinkedList_Remove(t *testing.T) {
 		want      []want
 		testPanic testPanic
 	}{
-		{"remove1", ConvertToLinkedList(3, 1, 2, 3), args{[]int{0}},
+		{"remove1", ConvertToLinkedList(1, 2, 3), args{[]int{0}},
 			[]want{
-				want{1, 2, ConvertToLinkedList(2, 2, 3)},
+				want{1, 2, ConvertToLinkedList(2, 3)},
 			}, testPanic{nil, 0}},
-		{"remove2", ConvertToLinkedList(3, 1, 2, 3), args{[]int{0, 1}},
+		{"remove2", ConvertToLinkedList(1, 2, 3), args{[]int{0, 1}},
 			[]want{
-				want{1, 2, ConvertToLinkedList(2, 2, 3)},
-				want{3, 1, ConvertToLinkedList(1, 2)},
+				want{1, 2, ConvertToLinkedList(2, 3)},
+				want{3, 1, ConvertToLinkedList(2)},
 			}, testPanic{nil, 0}},
-		{"panic1", ConvertToLinkedList(2, 1, 2), args{[]int{0, 1}},
+		{"panic1", ConvertToLinkedList(1, 2), args{[]int{0, 1}},
 			[]want{
-				want{1, 1, ConvertToLinkedList(1, 2)},
-				want{2, 0, NewLinkedList(0)},
+				want{1, 1, ConvertToLinkedList(2)},
+				want{2, 0, NewLinkedList()},
 			}, testPanic{&linkutils.NullCurrError{}, 1}},
-		{"panic2", NewLinkedList(0), args{[]int{0}},
-			[]want{want{0, 0, NewLinkedList(0)}}, testPanic{&arrayutils.EmptyListError{}, 0}},
+		{"panic2", NewLinkedList(), args{[]int{0}},
+			[]want{want{0, 0, NewLinkedList()}}, testPanic{&arrayutils.EmptyListError{}, 0}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -205,9 +201,9 @@ func TestLinkedList_Length(t *testing.T) {
 		a    *LinkedList
 		want int
 	}{
-		{"length1", NewLinkedList(0), 0},
-		{"length2", ConvertToLinkedList(3, 1, 2, 3), 3},
-		{"length5", ConvertToLinkedList(2, make([]interface{}, 2, 2)...), 2},
+		{"length1", NewLinkedList(), 0},
+		{"length2", ConvertToLinkedList(1, 2, 3), 3},
+		{"length5", ConvertToLinkedList(make([]interface{}, 2, 2)...), 2},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -230,9 +226,9 @@ func TestLinkedList_SetValue(t *testing.T) {
 		want      interface{}
 		testPanic error
 	}{
-		{"set1", ConvertToLinkedList(3, 2, 3, 3), args{0, 3}, 3, nil},
+		{"set1", ConvertToLinkedList(2, 3, 3), args{0, 3}, 3, nil},
 		{"set2", ConvertToLinkedList(2, 3, 4), args{1, 2}, 2, nil},
-		{"panic", NewLinkedList(100), args{50, 1}, 1, &linkutils.NullCurrError{}},
+		{"panic", NewLinkedList(), args{50, 1}, 1, &linkutils.NullCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -264,9 +260,9 @@ func TestLinkedList_Get(t *testing.T) {
 		want      interface{}
 		testPanic error
 	}{
-		{"set1", ConvertToLinkedList(3, 2, 3, 3), args{0}, 2, nil},
-		{"set2", ConvertToLinkedList(2, 2, 3), args{1}, 3, nil},
-		{"panic", NewLinkedList(0), args{50}, 0, &linkutils.NullCurrError{}},
+		{"set1", ConvertToLinkedList(2, 3, 3), args{0}, 2, nil},
+		{"set2", ConvertToLinkedList(2, 3), args{1}, 3, nil},
+		{"panic", NewLinkedList(), args{50}, 0, &linkutils.NullCurrError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -296,9 +292,9 @@ func TestLinkedList_IndexOf(t *testing.T) {
 		args args
 		want int
 	}{
-		{"index_of1", ConvertToLinkedList(3, 1, 2, 3), args{3}, 2},
-		{"index_of2", ConvertToLinkedList(2, 2, 3), args{3}, 1},
-		{"not_found1", ConvertToLinkedList(2, 1, 2), args{4}, -1},
+		{"index_of1", ConvertToLinkedList(1, 2, 3), args{3}, 2},
+		{"index_of2", ConvertToLinkedList(2, 3), args{3}, 1},
+		{"not_found1", ConvertToLinkedList(1, 2), args{4}, -1},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -319,9 +315,9 @@ func TestLinkedList_Contains(t *testing.T) {
 		args args
 		want bool
 	}{
-		{"index_of1", ConvertToLinkedList(3, 1, 2, 3), args{2}, true},
-		{"index_of2", ConvertToLinkedList(2, 2, 3), args{3}, true},
-		{"not_found1", ConvertToLinkedList(2, 1, 2), args{4}, false},
+		{"index_of1", ConvertToLinkedList(1, 2, 3), args{2}, true},
+		{"index_of2", ConvertToLinkedList(2, 3), args{3}, true},
+		{"not_found1", ConvertToLinkedList(1, 2), args{4}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -338,8 +334,8 @@ func TestLinkedList_IsEmpty(t *testing.T) {
 		a    *LinkedList
 		want bool
 	}{
-		{"empty3", NewLinkedList(0), true},
-		{"not_empty", ConvertToLinkedList(3, 1, 2, 3), false},
+		{"empty3", NewLinkedList(), true},
+		{"not_empty", ConvertToLinkedList(1, 2, 3), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -360,10 +356,10 @@ func TestLinkedList_isInList(t *testing.T) {
 		args args
 		want bool
 	}{
-		{"in_list1", ConvertToLinkedList(3, 1, 2, 3), args{2}, true},
-		{"in_list2", ConvertToLinkedList(2, 2, 3), args{1}, true},
-		{"not_in_list1", ConvertToLinkedList(2, 2, 3), args{2}, false},
-		{"not_in_list2", NewLinkedList(100), args{0}, false},
+		{"in_list1", ConvertToLinkedList(1, 2, 3), args{2}, true},
+		{"in_list2", ConvertToLinkedList(2, 3), args{1}, true},
+		{"not_in_list1", ConvertToLinkedList(2, 3), args{2}, false},
+		{"not_in_list2", NewLinkedList(), args{0}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -392,10 +388,10 @@ func TestLinkedList_String(t *testing.T) {
 		a    *LinkedList
 		want string
 	}{
-		{"string1", NewLinkedList(100), "()"},
-		{"string2", ConvertToLinkedList(2, 2, 3), "(2, 3)"},
-		{"string3", ConvertToLinkedList(3, 1, 2, 3), "(1, 2, 3)"},
-		{"string3", ConvertToLinkedList(3, []interface{}{&City{1, "Beijing"}, &City{2, "Shanghai"}, &City{3, "Xi'an"}}...), "(1. Beijing, 2. Shanghai, 3. Xi'an)"},
+		{"string1", NewLinkedList(), "()"},
+		{"string2", ConvertToLinkedList(2, 3), "(2, 3)"},
+		{"string3", ConvertToLinkedList(1, 2, 3), "(1, 2, 3)"},
+		{"string3", ConvertToLinkedList([]interface{}{&City{1, "Beijing"}, &City{2, "Shanghai"}, &City{3, "Xi'an"}}...), "(1. Beijing, 2. Shanghai, 3. Xi'an)"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

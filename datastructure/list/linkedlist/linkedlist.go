@@ -15,14 +15,14 @@ type LinkedList struct {
 	tail      linkutils.LinkNode
 }
 
-func NewLinkedList(size int) *LinkedList {
+func NewLinkedList() *LinkedList {
 	head := linkutils.NewDoubleLinkNode(nil, nil, nil)
 	tail := head
 	return &LinkedList{0, head, tail}
 }
 
-func ConvertToLinkedList(size int, listArray ...interface{}) *LinkedList {
-	linkedList := NewLinkedList(0)
+func ConvertToLinkedList(listArray ...interface{}) *LinkedList {
+	linkedList := NewLinkedList()
 	linkedList.Append(listArray...)
 	return linkedList
 }
