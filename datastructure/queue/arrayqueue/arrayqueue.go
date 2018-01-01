@@ -17,7 +17,7 @@ func NewArrayQueue(size int) *ArrayQueue {
 	return &ArrayQueue{size, 0, 0, list}
 }
 
-func (a *ArrayQueue) clear() {
+func (a *ArrayQueue) Clear() {
 	a.front = 0
 	a.rear = 0
 }

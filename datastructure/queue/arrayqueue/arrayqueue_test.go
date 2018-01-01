@@ -34,12 +34,12 @@ func TestArrayQueue_clear(t *testing.T) {
 		name string
 		a    *ArrayQueue
 	}{
-		{"empty1", &ArrayQueue{3, 0, 3, arraylist.ConvertToLinkedList(3, 1, 2, 3)}},
-		{"empty2", &ArrayQueue{3, 3, 100, arraylist.ConvertToLinkedList(3, make([]int, 100, 100))}},
+		{"empty1", &ArrayQueue{3, 0, 3, arraylist.ConvertToArrayList(3, 1, 2, 3)}},
+		{"empty2", &ArrayQueue{3, 3, 100, arraylist.ConvertToArrayList(3, make([]int, 100, 100))}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.a.clear()
+			tt.a.Clear()
 			if tt.a.front != 0 && tt.a.rear != 0 {
 				t.Errorf("Clear failed, got front pointer %v, rear pointer %v", tt.a.front, tt.a.rear)
 			}
@@ -61,7 +61,7 @@ func TestArrayQueue_Enqueue(t *testing.T) {
 	}{
 		{"enqueue", NewArrayQueue(3), args{1}, 1, 1, nil},
 		{"panic", NewArrayQueue(0), args{2}, 1, 2, &arrayutils.FullListError{}},
-		{"panic", &ArrayQueue{2, 0, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, args{2}, 1, 2, &arrayutils.FullListError{}},
+		{"panic", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, args{2}, 1, 2, &arrayutils.FullListError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -98,8 +98,8 @@ func TestArrayQueue_Dequeue(t *testing.T) {
 		want      interface{}
 		testPanic error
 	}{
-		{"dequeue", &ArrayQueue{2, 0, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, 0, 1, nil},
-		{"panic", &ArrayQueue{2, 1, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, 0, 1, &arrayutils.EmptyListError{}},
+		{"dequeue", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, 0, 1, nil},
+		{"panic", &ArrayQueue{2, 1, 1, arraylist.ConvertToArrayList(2, 1, 2)}, 0, 1, &arrayutils.EmptyListError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -134,8 +134,8 @@ func TestArrayQueue_Peek(t *testing.T) {
 		want      interface{}
 		testPanic error
 	}{
-		{"peek", &ArrayQueue{2, 0, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, 1, nil},
-		{"panic", &ArrayQueue{2, 1, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, 1, &arrayutils.EmptyListError{}},
+		{"peek", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, 1, nil},
+		{"panic", &ArrayQueue{2, 1, 1, arraylist.ConvertToArrayList(2, 1, 2)}, 1, &arrayutils.EmptyListError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -161,8 +161,8 @@ func TestArrayQueue_IsEmpty(t *testing.T) {
 		a    *ArrayQueue
 		want bool
 	}{
-		{"empty", &ArrayQueue{2, 0, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, false},
-		{"not_empty", &ArrayQueue{2, 1, 1, arraylist.ConvertToLinkedList(2, 1, 2)}, true},
+		{"empty", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, false},
+		{"not_empty", &ArrayQueue{2, 1, 1, arraylist.ConvertToArrayList(2, 1, 2)}, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
