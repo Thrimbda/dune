@@ -20,7 +20,7 @@ func (a ArrayQueue) clear() {
 	a.list.Clear()
 }
 
-func (a ArrayQueue) enqueue(item interface{}) error {
+func (a ArrayQueue) Enqueue(item interface{}) error {
 	if a.rear+1%a.list.Length() == a.front {
 		return FullListError{}
 	}
@@ -29,7 +29,7 @@ func (a ArrayQueue) enqueue(item interface{}) error {
 	return nil
 }
 
-func (a ArrayQueue) dequeue() (interface{}, error) {
+func (a ArrayQueue) Dequeue() (interface{}, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
@@ -37,13 +37,13 @@ func (a ArrayQueue) dequeue() (interface{}, error) {
 	return a.list.Get(a.front), nil
 }
 
-func (a ArrayQueue) firstValue() (interface{}, error) {
+func (a ArrayQueue) Peek() (interface{}, error) {
 	if a.isEmpty() {
 		return nil, EmptyListError{}
 	}
 	return a.list.Get((a.front + 1) % a.list.Length()), nil
 }
 
-func (a ArrayQueue) isEmpty() bool {
+func (a ArrayQueue) IsEmpty() bool {
 	return a.front == a.rear
 }

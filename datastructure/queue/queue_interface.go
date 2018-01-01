@@ -5,6 +5,6 @@ type Queue interface {
 	Clear()
 	Enqueue(item interface{})
 	Dequeue() interface{}
-	FirstValue() interface{}
+	Peek() interface{}
 	IsEmpty() bool
 }
