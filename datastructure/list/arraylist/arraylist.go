@@ -91,7 +91,7 @@ func (a *ArrayList) SetValue(index int, value interface{}) {
 }
 
 func (a *ArrayList) Get(index int) interface{} {
-	if index < 0 || index > a.numInList {
+	if !a.isInList(index) {
 		panic(&arrayutils.BadCurrError{})
 	}
 	return a.listArray[index]
