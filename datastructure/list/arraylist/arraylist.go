@@ -17,7 +17,7 @@ type ArrayList struct {
 }
 
 func NewArrayList(size int) *ArrayList {
-	return &ArrayList{size, 0, make([]interface{}, size)}
+	return &ArrayList{size, 0, make([]interface{}, 0, size)}
 }
 
 func ConvertToLinkedList(size int, listArray ...interface{}) *ArrayList {

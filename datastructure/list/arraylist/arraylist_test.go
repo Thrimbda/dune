@@ -115,15 +115,15 @@ func TestArrayList_Append(t *testing.T) {
 		a         *ArrayList
 		args      args
 		want      want
-		testPanic bool
+		testPanic error
 	}{
-		{"append_1", NewArrayList(100), args{[]interface{}{1}}, want{false, 1, 1, 0}, false},
-		{"append_2", NewArrayList(100), args{[]interface{}{2, 3}}, want{false, 2, 3, 1}, false},
-		{"panic", NewArrayList(0), args{[]interface{}{1, 1, 1}}, want{false, 3, 1, 0}, true},
+		{"append_1", NewArrayList(100), args{[]interface{}{1}}, want{false, 1, 1, 0}, nil},
+		{"append_2", NewArrayList(100), args{[]interface{}{2, 3}}, want{false, 2, 3, 1}, nil},
+		{"panic", NewArrayList(0), args{[]interface{}{1, 1, 1}}, want{false, 3, 1, 0}, &arrayutils.FullListError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if !tt.testPanic {
+			if tt.testPanic == nil {
 				tt.a.Append(tt.args.items...)
 				if got := tt.a.IsEmpty(); got != tt.want.isEmpty {
 					t.Errorf("expect %v, but got %v", tt.want.isEmpty, got)
@@ -136,8 +136,8 @@ func TestArrayList_Append(t *testing.T) {
 				}
 			} else {
 				defer func() {
-					if r := recover(); !reflect.DeepEqual(r, &arrayutils.FullListError{}) {
-						t.Errorf("expect %v, but get %v", &arrayutils.FullListError{}, r)
+					if r := recover(); !reflect.DeepEqual(r, tt.testPanic) {
+						t.Errorf("expect %v, but get %v", tt.testPanic, r)
 					}
 				}()
 				tt.a.Append(tt.args.items...)
