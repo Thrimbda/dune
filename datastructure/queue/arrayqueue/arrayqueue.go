@@ -6,6 +6,7 @@ import (
 )
 
 type ArrayQueue struct {
+	size  int
 	front int
 	rear  int
 	list  *arraylist.ArrayList
@@ -13,36 +14,43 @@ type ArrayQueue struct {
 
 func NewArrayQueue(size int) *ArrayQueue {
 	list := arraylist.NewArrayList(size)
-	return &ArrayQueue{0, 0, list}
+	return &ArrayQueue{size, 0, 0, list}
 }
 
-func (a ArrayQueue) clear() {
-	a.list.Clear()
+func (a *ArrayQueue) clear() {
+	a.front = 0
+	a.rear = 0
 }
 
-func (a ArrayQueue) Enqueue(item interface{}) {
-	if a.rear+1%a.list.Length() == a.front {
+func (a *ArrayQueue) Enqueue(item interface{}) {
+	if a.size == 0 || a.rear+1%a.size == a.front {
 		panic(&FullListError{})
 	}
-	a.rear = (a.rear + 1) % a.list.Length()
-	a.list.SetValue(a.rear, item)
+	if a.rear+1 >= a.list.Length() {
+		a.rear = (a.rear + 1) % a.size
+		a.list.Append(item)
+	} else {
+		a.list.SetValue(a.rear, item)
+		a.rear += 1
+	}
 }
 
-func (a ArrayQueue) Dequeue() interface{} {
+func (a *ArrayQueue) Dequeue() interface{} {
 	if a.IsEmpty() {
 		panic(&EmptyListError{})
 	}
-	a.front = (a.front + 1) % a.list.Length()
+	value := a.list.Get(a.front)
+	a.front = (a.front + 1) % a.size
+	return value
+}
+
+func (a *ArrayQueue) Peek() interface{} {
+	if a.IsEmpty() {
+		panic(&EmptyListError{})
+	}
 	return a.list.Get(a.front)
 }
 
-func (a ArrayQueue) Peek() interface{} {
-	if a.IsEmpty() {
-		panic(&EmptyListError{})
-	}
-	return a.list.Get((a.front + 1) % a.list.Length())
-}
-
-func (a ArrayQueue) IsEmpty() bool {
+func (a *ArrayQueue) IsEmpty() bool {
 	return a.front == a.rear
 }
