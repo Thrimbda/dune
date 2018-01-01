@@ -1,11 +1,12 @@
-# 算法与数据结构
+# DUNE-沙丘
+
+> 聚沙成塔
 
 [![Build Status](https://travis-ci.org/Thrimbda/dune.svg?branch=master)](https://travis-ci.org/Thrimbda/dune)
 [![Coverage Status](https://coveralls.io/repos/github/Thrimbda/dune/badge.svg?branch=master)](https://coveralls.io/github/Thrimbda/dune?branch=master)
 
-一个用 `Golang`实现的算法与数据结构的.
+一个用 `Golang`实现的基础数据结构集.
 
-目前项目正在专注于基础的数据结构实现。
 
 ## 数据结构
 
@@ -25,13 +26,14 @@ type Elem interface {
 线性表接口如下
 
 ```go
+//List interface which doesn't support resize yet.
 type List interface {
 	Insert(index int, items ...interface{})
 	Append(items ...interface{})
 	Remove(index int) interface{}
 	Length() int
 	Get(index int) interface{}
-	SetValue(index int, item interface{})
+	SetValue(index int, value interface{})
 	Contains(value interface{}) bool
 	IndexOf(value interface{}) int
 	Clear()
@@ -44,26 +46,26 @@ type List interface {
 #### 栈
 
 ```go
+//Stack interface
 type Stack interface {
-  setup(size int)
-  clear()
-  push(item Elem)
-  pop() Elem
-  topValue() Elem
-  isEmpty() bool
+	Clear()
+	Push(item interface{})
+	Pop() interface{}
+	Peek() interface{}
+	IsEmpty() bool
 }
 ```
 
 #### 队列
 
 ```go
+//Queue interface.
 type Queue interface {
-  setup(size int)
-  clear()
-  enqueue(item Elem)
-  dequeue() Elem
-  firstValue() Elem
-  isEmpty() bool
+	Clear()
+	Enqueue(item interface{})
+	Dequeue() interface{}
+	Peek() interface{}
+	IsEmpty() bool
 }
 ```
 
