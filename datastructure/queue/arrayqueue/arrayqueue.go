@@ -1,7 +1,7 @@
 package queue
 
 import (
-	. "github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/datastructure/arrayutils"
 	"github.com/Thrimbda/dune/datastructure/list/arraylist"
 )
 
@@ -13,8 +13,14 @@ type ArrayQueue struct {
 }
 
 func NewArrayQueue(size int) *ArrayQueue {
-	list := arraylist.NewArrayList(size)
-	return &ArrayQueue{size, 0, 0, list}
+	return &ArrayQueue{size, 0, 0, arraylist.NewArrayList(size)}
+}
+
+func ConvertToArrayQueue(size int, items ...interface{}) *ArrayQueue {
+	if size <= len(items) {
+		panic(&arrayutils.FullListError{})
+	}
+	return &ArrayQueue{size, 0, len(items), arraylist.ConvertToArrayList(size, items...)}
 }
 
 func (a *ArrayQueue) Clear() {
@@ -24,7 +30,7 @@ func (a *ArrayQueue) Clear() {
 
 func (a *ArrayQueue) Enqueue(item interface{}) {
 	if a.size == 0 || a.rear+1%a.size == a.front {
-		panic(&FullListError{})
+		panic(&arrayutils.FullListError{})
 	}
 	if a.rear+1 >= a.list.Length() {
 		a.rear = (a.rear + 1) % a.size
@@ -37,7 +43,7 @@ func (a *ArrayQueue) Enqueue(item interface{}) {
 
 func (a *ArrayQueue) Dequeue() interface{} {
 	if a.IsEmpty() {
-		panic(&EmptyListError{})
+		panic(&arrayutils.EmptyListError{})
 	}
 	value := a.list.Get(a.front)
 	a.front = (a.front + 1) % a.size
@@ -46,7 +52,7 @@ func (a *ArrayQueue) Dequeue() interface{} {
 
 func (a *ArrayQueue) Peek() interface{} {
 	if a.IsEmpty() {
-		panic(&EmptyListError{})
+		panic(&arrayutils.EmptyListError{})
 	}
 	return a.list.Get(a.front)
 }

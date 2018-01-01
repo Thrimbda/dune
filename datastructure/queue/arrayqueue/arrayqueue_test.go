@@ -29,6 +29,29 @@ func TestNewArrayQueue(t *testing.T) {
 	}
 }
 
+func TestConvertToArrayQueue(t *testing.T) {
+	type args struct {
+		size  int
+		items []interface{}
+	}
+	tests := []struct {
+		name      string
+		args      args
+		want      *ArrayQueue
+		testPanic error
+	}{
+		{"new", args{4, []interface{}{1, 2, 3}}, &ArrayQueue{4, 0, 3, arraylist.ConvertToArrayList(4, 1, 2, 3)}, nil},
+		{"huge", args{100, make([]interface{}, 99)}, &ArrayQueue{100, 0, 99, arraylist.ConvertToArrayList(100, make([]interface{}, 99)...)}, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ConvertToArrayQueue(tt.args.size, tt.args.items...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ConvertToArrayQueue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestArrayQueue_clear(t *testing.T) {
 	tests := []struct {
 		name string
@@ -59,6 +82,7 @@ func TestArrayQueue_Enqueue(t *testing.T) {
 		element   interface{}
 		testPanic error
 	}{
+		{"enqueue", &ArrayQueue{4, 1, 2, arraylist.ConvertToArrayList(4, 1, 2, 3)}, args{4}, 2, 2, nil},
 		{"enqueue", NewArrayQueue(3), args{1}, 1, 1, nil},
 		{"panic", NewArrayQueue(0), args{2}, 1, 2, &arrayutils.FullListError{}},
 		{"panic", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, args{2}, 1, 2, &arrayutils.FullListError{}},
