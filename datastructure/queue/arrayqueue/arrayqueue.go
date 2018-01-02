@@ -32,7 +32,7 @@ func (a *ArrayQueue) Enqueue(item interface{}) {
 	if a.size == 0 || a.rear+1%a.size == a.front {
 		panic(&arrayutils.FullListError{})
 	}
-	if a.rear+1 >= a.list.Length() {
+	if a.rear+1 >= a.list.Length() { // here we got a bug.
 		a.rear = (a.rear + 1) % a.size
 		a.list.Append(item)
 	} else {
