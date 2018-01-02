@@ -214,7 +214,7 @@ func TestLinkedList_Length(t *testing.T) {
 	}
 }
 
-func TestLinkedList_SetValue(t *testing.T) {
+func TestLinkedList_Set(t *testing.T) {
 	type args struct {
 		index int
 		item  interface{}
@@ -233,9 +233,9 @@ func TestLinkedList_SetValue(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.testPanic == nil {
-				tt.a.SetValue(tt.args.index, tt.args.item)
+				tt.a.Set(tt.args.index, tt.args.item)
 				if got := tt.a.Get(tt.args.index); !reflect.DeepEqual(got, tt.args.item) {
-					t.Errorf("LinkedList.SetValue() = %v, want %v", got, tt.want)
+					t.Errorf("LinkedList.Set() = %v, want %v", got, tt.want)
 				}
 			} else {
 				defer func() {
@@ -243,7 +243,7 @@ func TestLinkedList_SetValue(t *testing.T) {
 						t.Errorf("expect %v, but get %v", tt.testPanic, r)
 					}
 				}()
-				tt.a.SetValue(tt.args.index, tt.args.item)
+				tt.a.Set(tt.args.index, tt.args.item)
 			}
 		})
 	}

@@ -90,7 +90,7 @@ func (l *LinkedList) Length() int {
 	return l.numInList
 }
 
-func (l *LinkedList) SetValue(index int, value interface{}) {
+func (l *LinkedList) Set(index int, value interface{}) {
 	if !l.isInList(index) {
 		panic(&linkutils.NullCurrError{})
 	}

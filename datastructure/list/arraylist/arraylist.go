@@ -83,7 +83,7 @@ func (a *ArrayList) Length() int {
 	return a.numInList
 }
 
-func (a *ArrayList) SetValue(index int, value interface{}) {
+func (a *ArrayList) Set(index int, value interface{}) {
 	if !a.isInList(index) {
 		panic(&arrayutils.BadCurrError{})
 	}

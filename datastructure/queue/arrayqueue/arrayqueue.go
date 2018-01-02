@@ -34,7 +34,7 @@ func (a *ArrayQueue) Enqueue(item interface{}) {
 	if a.size == 0 || (a.rear+1)%a.size == a.front {
 		panic(&arrayutils.FullListError{})
 	}
-	a.list.SetValue(a.rear, item)
+	a.list.Set(a.rear, item)
 	a.rear = (a.rear + 1) % a.size
 }
 
