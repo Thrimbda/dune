@@ -1,4 +1,4 @@
-package stack
+package linkedstack
 
 import (
 	"github.com/Thrimbda/dune/datastructure/list/linkedlist"

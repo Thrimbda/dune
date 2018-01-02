@@ -1,4 +1,4 @@
-package queue
+package arrayqueue
 
 import (
 	"github.com/Thrimbda/dune/datastructure/arrayutils"

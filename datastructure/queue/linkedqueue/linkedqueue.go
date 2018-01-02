@@ -1,4 +1,4 @@
-package queue
+package linkedqueue
 
 import (
 	"github.com/Thrimbda/dune/datastructure/list/linkedlist"
