@@ -1,6 +1,9 @@
 package arrayqueue
 
 import (
+	"bytes"
+	"fmt"
+
 	"github.com/Thrimbda/dune/datastructure/arrayutils"
 	"github.com/Thrimbda/dune/datastructure/list/arraylist"
 )
@@ -56,4 +59,21 @@ func (a *ArrayQueue) Peek() interface{} {
 
 func (a *ArrayQueue) IsEmpty() bool {
 	return a.front == a.rear
+}
+
+func (a *ArrayQueue) String() string {
+	var buffer bytes.Buffer
+	if a.IsEmpty() {
+		return "()"
+	}
+	buffer.WriteString("(")
+	for i := a.front; i%a.size != a.rear; i++ {
+		value := a.list.Get(i)
+		if (i+1)%a.size != a.rear {
+			buffer.WriteString(fmt.Sprintf("%v, ", value))
+		} else {
+			buffer.WriteString(fmt.Sprintf("%v)", value))
+		}
+	}
+	return buffer.String()
 }

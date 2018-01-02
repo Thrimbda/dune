@@ -1,9 +1,11 @@
 package linkedqueue
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
+	"github.com/Thrimbda/dune/datastructure"
 	"github.com/Thrimbda/dune/datastructure/arrayutils"
 	"github.com/Thrimbda/dune/datastructure/linkutils"
 	"github.com/Thrimbda/dune/datastructure/list/linkedlist"
@@ -165,6 +167,38 @@ func TestLinkedQueue_IsEmpty(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.a.IsEmpty(); got != tt.want {
 				t.Errorf("LinkedQueue.IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+type City struct {
+	id   int
+	name string
+}
+
+func (c *City) LessComparator(b datastructure.Elem) bool {
+	return c.id < b.(*City).id
+}
+func (c *City) String() string {
+	return fmt.Sprintf("%v. %v", c.id, c.name)
+}
+
+func TestLinkedQueue_String(t *testing.T) {
+	tests := []struct {
+		name string
+		a    *LinkedQueue
+		want string
+	}{
+		{"string1", NewLinkedQueue(), "()"},
+		{"string2", ConvertToLinkedQueue(2, 3), "(2, 3)"},
+		{"string3", &LinkedQueue{linkedlist.ConvertToLinkedList(1, 2, 3)}, "(1, 2, 3)"},
+		{"string4", ConvertToLinkedQueue([]interface{}{&City{1, "Beijing"}, &City{2, "Shanghai"}, &City{3, "Xi'an"}}...), "(1. Beijing, 2. Shanghai, 3. Xi'an)"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.a.String(); got != tt.want {
+				t.Errorf("LinkedQueue.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}

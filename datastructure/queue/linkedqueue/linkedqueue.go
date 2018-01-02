@@ -16,22 +16,26 @@ func ConvertToLinkedQueue(items ...interface{}) *LinkedQueue {
 	return &LinkedQueue{linkedlist.ConvertToLinkedList(items...)}
 }
 
-func (l LinkedQueue) Clear() {
+func (l *LinkedQueue) Clear() {
 	l.list.Clear()
 }
 
-func (l LinkedQueue) Enqueue(item interface{}) {
+func (l *LinkedQueue) Enqueue(item interface{}) {
 	l.list.Append(item)
 }
 
-func (l LinkedQueue) Dequeue() interface{} {
+func (l *LinkedQueue) Dequeue() interface{} {
 	return l.list.Remove(0)
 }
 
-func (l LinkedQueue) Peek() interface{} {
+func (l *LinkedQueue) Peek() interface{} {
 	return l.list.Get(0)
 }
 
-func (l LinkedQueue) IsEmpty() bool {
+func (l *LinkedQueue) IsEmpty() bool {
 	return l.list.IsEmpty()
+}
+
+func (l *LinkedQueue) String() string {
+	return l.list.String()
 }
