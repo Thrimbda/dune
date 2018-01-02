@@ -5,6 +5,8 @@ import (
 	"github.com/Thrimbda/dune/datastructure/list/arraylist"
 )
 
+// or maybe using arraylist to
+
 type ArrayQueue struct {
 	size  int
 	front int
@@ -13,7 +15,7 @@ type ArrayQueue struct {
 }
 
 func NewArrayQueue(size int) *ArrayQueue {
-	return &ArrayQueue{size, 0, 0, arraylist.NewArrayList(size)}
+	return &ArrayQueue{size, 0, 0, arraylist.ConvertToArrayList(size, make([]interface{}, size)...)}
 }
 
 func ConvertToArrayQueue(size int, items ...interface{}) *ArrayQueue {
@@ -29,16 +31,11 @@ func (a *ArrayQueue) Clear() {
 }
 
 func (a *ArrayQueue) Enqueue(item interface{}) {
-	if a.size == 0 || a.rear+1%a.size == a.front {
+	if a.size == 0 || (a.rear+1)%a.size == a.front {
 		panic(&arrayutils.FullListError{})
 	}
-	if a.rear+1 >= a.list.Length() { // here we got a bug.
-		a.rear = (a.rear + 1) % a.size
-		a.list.Append(item)
-	} else {
-		a.list.SetValue(a.rear, item)
-		a.rear += 1
-	}
+	a.list.SetValue(a.rear, item)
+	a.rear = (a.rear + 1) % a.size
 }
 
 func (a *ArrayQueue) Dequeue() interface{} {

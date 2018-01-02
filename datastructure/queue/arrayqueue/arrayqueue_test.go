@@ -18,7 +18,7 @@ func TestNewArrayQueue(t *testing.T) {
 		want *ArrayQueue
 	}{
 		{"new_empty", args{0}, &ArrayQueue{0, 0, 0, arraylist.NewArrayList(0)}},
-		{"new1", args{3}, &ArrayQueue{3, 0, 0, arraylist.NewArrayList(3)}},
+		{"new1", args{3}, &ArrayQueue{3, 0, 0, arraylist.ConvertToArrayList(3, make([]interface{}, 3)...)}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -92,10 +92,10 @@ func TestArrayQueue_Enqueue(t *testing.T) {
 		element   interface{}
 		testPanic error
 	}{
-		{"enqueue", &ArrayQueue{5, 2, 4, arraylist.ConvertToArrayList(5, 1, 2, 3, 4, 5)}, args{4}, 2, 2, nil},
-		{"enqueue", NewArrayQueue(3), args{1}, 1, 1, nil},
-		{"panic", NewArrayQueue(0), args{2}, 1, 2, &arrayutils.FullListError{}},
-		{"panic", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, args{2}, 1, 2, &arrayutils.FullListError{}},
+		{"enqueue1", &ArrayQueue{5, 2, 4, arraylist.ConvertToArrayList(5, 1, 2, 3, 4, 5)}, args{4}, 3, 3, nil},
+		{"enqueue2", NewArrayQueue(3), args{1}, 1, 1, nil},
+		{"panic1", NewArrayQueue(0), args{2}, 1, 2, &arrayutils.FullListError{}},
+		{"panic2", &ArrayQueue{2, 0, 1, arraylist.ConvertToArrayList(2, 1, 2)}, args{2}, 1, 2, &arrayutils.FullListError{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -110,7 +110,7 @@ func TestArrayQueue_Enqueue(t *testing.T) {
 					}
 					return tt.a.rear - tt.a.front
 				}(); got != tt.length {
-					t.Errorf("expect front %v, but got front %v", tt.length, got)
+					t.Errorf("expect length %v, but got length %v", tt.length, got)
 				}
 			} else {
 				defer func() {
