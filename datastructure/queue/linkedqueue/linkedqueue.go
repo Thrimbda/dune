@@ -13,7 +13,7 @@ func NewLinkedQueue() *LinkedQueue {
 }
 
 func ConvertToLinkedQueue(items ...interface{}) *LinkedQueue {
-	return &LinkedQueue{linkedlist.ConvertToLinkedList(items)}
+	return &LinkedQueue{linkedlist.ConvertToLinkedList(items...)}
 }
 
 func (l LinkedQueue) Clear() {

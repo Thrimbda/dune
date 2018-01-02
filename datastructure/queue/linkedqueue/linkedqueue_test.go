@@ -26,6 +26,28 @@ func TestNewLinkedQueue(t *testing.T) {
 }
 
 func TestConvertToLinkedQueue(t *testing.T) {
+	type args struct {
+		items []interface{}
+	}
+	tests := []struct {
+		name      string
+		args      args
+		want      *LinkedQueue
+		testPanic error
+	}{
+		{"new", args{[]interface{}{1, 2, 3}}, &LinkedQueue{linkedlist.ConvertToLinkedList(1, 2, 3)}, nil},
+		{"huge", args{make([]interface{}, 99)}, &LinkedQueue{linkedlist.ConvertToLinkedList(make([]interface{}, 99)...)}, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ConvertToLinkedQueue(tt.args.items...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ConvertToLinkedQueue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestLinkedQueue_Clear(t *testing.T) {
 	tests := []struct {
 		name string
 		a    *LinkedQueue
@@ -39,20 +61,6 @@ func TestConvertToLinkedQueue(t *testing.T) {
 			if !tt.a.list.IsEmpty() {
 				t.Errorf("Clear failed, got size %v", tt.a.list.Length())
 			}
-		})
-	}
-}
-
-func TestLinkedQueue_Clear(t *testing.T) {
-	tests := []struct {
-		name string
-		l    LinkedQueue
-	}{
-	// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.l.Clear()
 		})
 	}
 }
