@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/Thrimbda/dune.svg?branch=master)](https://travis-ci.org/Thrimbda/dune)
 [![Coverage Status](https://coveralls.io/repos/github/Thrimbda/dune/badge.svg?branch=master)](https://coveralls.io/github/Thrimbda/dune?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Thrimbda/dune)](https://goreportcard.com/report/github.com/Thrimbda/dune)
 
 一个用 `Golang`实现的基础数据结构集.
 
