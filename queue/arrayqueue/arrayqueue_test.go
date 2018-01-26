@@ -5,9 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Thrimbda/dune/datastructure"
-	"github.com/Thrimbda/dune/datastructure/arrayutils"
-	"github.com/Thrimbda/dune/datastructure/list/arraylist"
+	"github.com/Thrimbda/dune"
+	"github.com/Thrimbda/dune/arrayutils"
+	"github.com/Thrimbda/dune/list/arraylist"
 )
 
 func TestNewArrayQueue(t *testing.T) {

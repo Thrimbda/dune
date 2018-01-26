@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Thrimbda/dune/datastructure"
-	"github.com/Thrimbda/dune/datastructure/arrayutils"
-	"github.com/Thrimbda/dune/datastructure/linkutils"
-	"github.com/Thrimbda/dune/datastructure/list/linkedlist"
+	"github.com/Thrimbda/dune"
+	"github.com/Thrimbda/dune/arrayutils"
+	"github.com/Thrimbda/dune/linkutils"
+	"github.com/Thrimbda/dune/list/linkedlist"
 )
 
 func TestNewLinkedQueue(t *testing.T) {

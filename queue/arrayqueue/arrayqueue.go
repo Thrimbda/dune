@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/Thrimbda/dune/datastructure/arrayutils"
-	"github.com/Thrimbda/dune/datastructure/list/arraylist"
+	"github.com/Thrimbda/dune/arrayutils"
+	"github.com/Thrimbda/dune/list/arraylist"
 )
 
 // or maybe using arraylist to

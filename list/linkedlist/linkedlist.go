@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/Thrimbda/dune/datastructure/arrayutils"
-	"github.com/Thrimbda/dune/datastructure/linkutils"
+	"github.com/Thrimbda/dune/arrayutils"
+	"github.com/Thrimbda/dune/linkutils"
 )
 
 type LinkedList struct {

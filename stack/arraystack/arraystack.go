@@ -1,7 +1,7 @@
 package arraystack
 
 import (
-	"github.com/Thrimbda/dune/datastructure/list/arraylist"
+	"github.com/Thrimbda/dune/list/arraylist"
 )
 
 type ArrayStack struct {

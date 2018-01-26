@@ -1,7 +1,7 @@
 package linkedqueue
 
 import (
-	"github.com/Thrimbda/dune/datastructure/list/linkedlist"
+	"github.com/Thrimbda/dune/list/linkedlist"
 )
 
 type LinkedQueue struct {

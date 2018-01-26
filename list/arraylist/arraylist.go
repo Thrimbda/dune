@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/Thrimbda/dune/datastructure/arrayutils"
+	"github.com/Thrimbda/dune/arrayutils"
 )
 
 // TODO: growby(n int) resize(cap int) shrink()

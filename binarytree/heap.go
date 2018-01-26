@@ -1,7 +1,7 @@
 package binarytree
 
 import (
-	"github.com/Thrimbda/dune/datastructure/utils"
+	"github.com/Thrimbda/dune/utils"
 )
 
 //a max-heap implementation.

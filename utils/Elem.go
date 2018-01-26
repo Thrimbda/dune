@@ -1,4 +1,4 @@
-package datastructure
+package uitls
 
 type Elem interface {
 	LessComparator(b Elem) bool
