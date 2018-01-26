@@ -4,6 +4,8 @@ import (
 	"github.com/Thrimbda/dune/list/arraylist"
 )
 
+// TODO: catch panic from lower API, and re-panic it
+
 type ArrayStack struct {
 	list *arraylist.ArrayList
 }
@@ -13,7 +15,7 @@ func NewArrayStack(size int) *ArrayStack {
 }
 
 func ConvertToArrayStack(size int, items ...interface{}) *ArrayStack {
-	return &ArrayStack{arraylist.ConvertToArrayList(size, items)}
+	return &ArrayStack{arraylist.ConvertToArrayList(size, items...)}
 }
 
 func (a *ArrayStack) Clear() {

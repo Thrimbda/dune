@@ -8,8 +8,6 @@ import (
 	"github.com/Thrimbda/dune/list/arraylist"
 )
 
-// or maybe using arraylist to
-
 type ArrayQueue struct {
 	size  int
 	front int

@@ -4,6 +4,7 @@ import (
 	"github.com/Thrimbda/dune/list/linkedlist"
 )
 
+// LinkedQueue is a queue implement with linklist.
 type LinkedQueue struct {
 	list *linkedlist.LinkedList
 }
