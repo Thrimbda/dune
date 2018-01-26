@@ -32,7 +32,7 @@ func TestConverToLinkedStack(t *testing.T) {
 		args args
 		want *LinkedStack
 	}{
-		{"new_convert", args{[]interface{}{1, 2, 3, 4, 2242}}, &LinkedStack{linkedlist.ConvertToLinkedList(1, 2, 3, 4, 2242)}},
+		{"new_convert", args{[]interface{}{1, 2, 3, 4, 2242}}, &LinkedStack{linkedlist.ConvertToLinkedList(2242, 4, 3, 2, 1)}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
