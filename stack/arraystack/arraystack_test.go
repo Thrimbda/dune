@@ -90,7 +90,7 @@ func TestArrayStack_Push(t *testing.T) {
 		want   interface{}
 	}{
 		{"empty_push", fields{arraylist.NewArrayList(3)}, args{3}, 3},
-		{"push1", fields{arraylist.ConvertToArrayList(4, 1, 2, 3, 4)}, args{5}, 5},
+		{"push1", fields{arraylist.ConvertToArrayList(5, 1, 2, 3, 4)}, args{5}, 5},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
