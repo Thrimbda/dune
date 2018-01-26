@@ -13,7 +13,11 @@ func NewLinkedStack() *LinkedStack {
 }
 
 func ConverToLinkedStack(items ...interface{}) *LinkedStack {
-	return &LinkedStack{linkedlist.ConvertToLinkedList(items)}
+	stack := NewLinkedStack()
+	for _, item := range items {
+		stack.Push(item)
+	}
+	return stack
 }
 
 func (l *LinkedStack) Clear() {
