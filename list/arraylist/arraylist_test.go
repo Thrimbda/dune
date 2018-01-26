@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/Thrimbda/dune/arrayutils"
+	"github.com/Thrimbda/dune/utils"
 )
 
 func TestNewArrayList(t *testing.T) {

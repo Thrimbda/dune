@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Thrimbda/dune"
 	"github.com/Thrimbda/dune/arrayutils"
 	"github.com/Thrimbda/dune/linkutils"
 	"github.com/Thrimbda/dune/list/linkedlist"
+	"github.com/Thrimbda/dune/utils"
 )
 
 func TestNewLinkedQueue(t *testing.T) {
@@ -177,7 +177,7 @@ type City struct {
 	name string
 }
 
-func (c *City) LessComparator(b datastructure.Elem) bool {
+func (c *City) LessComparator(b utils.Elem) bool {
 	return c.id < b.(*City).id
 }
 func (c *City) String() string {
