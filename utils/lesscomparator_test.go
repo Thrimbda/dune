@@ -2,8 +2,6 @@ package utils
 
 import (
 	"testing"
-
-	. "github.com/Thrimbda/dune"
 )
 
 func TestStringsLessComparator(t *testing.T) {

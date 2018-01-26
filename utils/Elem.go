@@ -1,4 +1,4 @@
-package uitls
+package utils
 
 type Elem interface {
 	LessComparator(b Elem) bool
