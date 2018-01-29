@@ -139,6 +139,14 @@ func (l *LinkedList) isInList(index int) bool {
 	return index >= 0 && index < l.numInList
 }
 
+func (l *LinkedList) Values() []interface{} {
+	values := make([]interface{}, l.numInList)
+	for i, item := 0, l.head.Next(); l.isInList(i); i, item = i+1, item.Next() {
+		values[i] = item.Element()
+	}
+	return values
+}
+
 func (l *LinkedList) String() string {
 	var buffer bytes.Buffer
 	if l.IsEmpty() {

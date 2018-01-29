@@ -391,6 +391,24 @@ func TestArrayList_isInList(t *testing.T) {
 	}
 }
 
+func TestArrayList_Values(t *testing.T) {
+	tests := []struct {
+		name string
+		a    *ArrayList
+		want []interface{}
+	}{
+		{"values1", ConvertToArrayList(5, 1, 2, 3, 4, 5), []interface{}{1, 2, 3, 4, 5}},
+		{"values2", NewArrayList(0), []interface{}{}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.a.Values(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ArrayList.Values() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 type City struct {
 	id   int
 	name string

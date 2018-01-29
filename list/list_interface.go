@@ -12,4 +12,5 @@ type List interface {
 	IndexOf(value interface{}) int
 	Clear()
 	IsEmpty() bool
+	Values() []interface{}
 }

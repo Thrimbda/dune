@@ -369,6 +369,23 @@ func TestLinkedList_isInList(t *testing.T) {
 		})
 	}
 }
+func TestLinkedList_Values(t *testing.T) {
+	tests := []struct {
+		name string
+		a    *LinkedList
+		want []interface{}
+	}{
+		{"values1", ConvertToLinkedList(1, 2, 3, 4, 5), []interface{}{1, 2, 3, 4, 5}},
+		{"values2", NewLinkedList(), []interface{}{}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.a.Values(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LinkedList.Values() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 type City struct {
 	id   int

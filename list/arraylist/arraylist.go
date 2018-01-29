@@ -121,6 +121,12 @@ func (a *ArrayList) isInList(index int) bool {
 	return index >= 0 && index < a.numInList
 }
 
+func (a *ArrayList) Values() []interface{} {
+	values := make([]interface{}, a.numInList)
+	copy(values, a.listArray)
+	return values
+}
+
 func (a *ArrayList) String() string {
 	var buffer bytes.Buffer
 	if a.IsEmpty() {
