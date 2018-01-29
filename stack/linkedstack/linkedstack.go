@@ -12,7 +12,7 @@ func NewLinkedStack() *LinkedStack {
 	return &LinkedStack{linkedlist.NewLinkedList()}
 }
 
-func ConverToLinkedStack(items ...interface{}) *LinkedStack {
+func ConvertToLinkedStack(items ...interface{}) *LinkedStack {
 	stack := NewLinkedStack()
 	for _, item := range items {
 		stack.Push(item)
@@ -38,4 +38,8 @@ func (l *LinkedStack) Peek() interface{} {
 
 func (l *LinkedStack) IsEmpty() bool {
 	return l.list.IsEmpty()
+}
+
+func (l *LinkedStack) String() string {
+	return l.String()
 }
