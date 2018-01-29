@@ -7,7 +7,7 @@ import (
 
 type ints []int
 
-func (a ints) Len() int { return len(a) }
+func (a ints) Length() int { return len(a) }
 
 func (a ints) Less(i, j int) bool { return a[i] < a[j] }
 
@@ -15,7 +15,7 @@ func (a ints) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 type float64s []float64
 
-func (a float64s) Len() int { return len(a) }
+func (a float64s) Length() int { return len(a) }
 
 func (a float64s) Less(i, j int) bool { return a[i] < a[j] || math.IsNaN(a[i]) && !math.IsNaN(a[j]) }
 
@@ -23,7 +23,7 @@ func (a float64s) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 type strings []string
 
-func (a strings) Len() int { return len(a) }
+func (a strings) Length() int { return len(a) }
 
 func (a strings) Less(i, j int) bool { return a[i] < a[j] }
 
