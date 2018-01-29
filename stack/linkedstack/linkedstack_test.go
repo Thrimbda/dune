@@ -1,10 +1,12 @@
 package linkedstack
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
 	"github.com/Thrimbda/dune/list/linkedlist"
+	"github.com/Thrimbda/dune/utils"
 )
 
 func TestNewLinkedStack(t *testing.T) {
@@ -23,7 +25,7 @@ func TestNewLinkedStack(t *testing.T) {
 	}
 }
 
-func TestConverToLinkedStack(t *testing.T) {
+func TestConvertToLinkedStack(t *testing.T) {
 	type args struct {
 		items []interface{}
 	}
@@ -36,8 +38,8 @@ func TestConverToLinkedStack(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ConverToLinkedStack(tt.args.items...); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ConverToLinkedStack() = %v, want %v", got, tt.want)
+			if got := ConvertToLinkedStack(tt.args.items...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ConvertToLinkedStack() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -50,7 +52,7 @@ func TestLinkedStack_Clear(t *testing.T) {
 		want bool
 	}{
 		{"empty1", NewLinkedStack(), true},
-		{"empty2", ConverToLinkedStack(1, 2, 3, 4, 5), true},
+		{"empty2", ConvertToLinkedStack(1, 2, 3, 4, 5), true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -73,7 +75,7 @@ func TestLinkedStack_Push(t *testing.T) {
 		want interface{}
 	}{
 		{"empty_push", NewLinkedStack(), args{3}, 3},
-		{"push1", ConverToLinkedStack(1, 2, 3, 4), args{5}, 5},
+		{"push1", ConvertToLinkedStack(1, 2, 3, 4), args{5}, 5},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -91,8 +93,8 @@ func TestLinkedStack_Pop(t *testing.T) {
 		l    *LinkedStack
 		want interface{}
 	}{
-		{"pop1", ConverToLinkedStack(1, 2, 3), 3},
-		{"pop2", ConverToLinkedStack(make([]interface{}, 100)...), nil},
+		{"pop1", ConvertToLinkedStack(1, 2, 3), 3},
+		{"pop2", ConvertToLinkedStack(make([]interface{}, 100)...), nil},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -109,8 +111,8 @@ func TestLinkedStack_Peek(t *testing.T) {
 		l    *LinkedStack
 		want interface{}
 	}{
-		{"peek1", ConverToLinkedStack(1, 2, 3), 3},
-		{"peek2", ConverToLinkedStack(make([]interface{}, 100)...), nil},
+		{"peek1", ConvertToLinkedStack(1, 2, 3), 3},
+		{"peek2", ConvertToLinkedStack(make([]interface{}, 100)...), nil},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -128,13 +130,45 @@ func TestLinkedStack_IsEmpty(t *testing.T) {
 		want bool
 	}{
 		{"empty", NewLinkedStack(), true},
-		{"not_empty", ConverToLinkedStack(2, 1, 2), false},
-		{"not_empty", ConverToLinkedStack(2), false},
+		{"not_empty", ConvertToLinkedStack(2, 1, 2), false},
+		{"not_empty", ConvertToLinkedStack(2), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.l.IsEmpty(); got != tt.want {
 				t.Errorf("LinkedStack.IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+type City struct {
+	id   int
+	name string
+}
+
+func (c *City) LessComparator(b utils.Elem) bool {
+	return c.id < b.(*City).id
+}
+func (c *City) String() string {
+	return fmt.Sprintf("%v. %v", c.id, c.name)
+}
+
+func TestLinkedStack_String(t *testing.T) {
+	tests := []struct {
+		name string
+		a    *LinkedStack
+		want string
+	}{
+		{"string1", NewLinkedStack(), "()"},
+		{"string2", ConvertToLinkedStack(2, 3), "(2, 3)"},
+		{"string3", &LinkedStack{linkedlist.ConvertToLinkedList(3, 2, 1)}, "(1, 2, 3)"},
+		{"string4", ConvertToLinkedStack([]interface{}{&City{1, "Beijing"}, &City{2, "Shanghai"}, &City{3, "Xi'an"}}...), "(1. Beijing, 2. Shanghai, 3. Xi'an)"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.a.String(); got != tt.want {
+				t.Errorf("LinkedQueue.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}

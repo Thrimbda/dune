@@ -1,6 +1,9 @@
 package linkedstack
 
 import (
+	"bytes"
+	"fmt"
+
 	"github.com/Thrimbda/dune/list/linkedlist"
 )
 
@@ -41,5 +44,19 @@ func (l *LinkedStack) IsEmpty() bool {
 }
 
 func (l *LinkedStack) String() string {
-	return l.String()
+	var buffer bytes.Buffer
+	if l.IsEmpty() {
+		return "()"
+	}
+	buffer.WriteString("(")
+	values := l.list.Values()
+	for i := len(values) - 1; i >= 0; i-- {
+		value := values[i]
+		if i != 0 {
+			buffer.WriteString(fmt.Sprintf("%v, ", value))
+		} else {
+			buffer.WriteString(fmt.Sprintf("%v)", value))
+		}
+	}
+	return buffer.String()
 }
