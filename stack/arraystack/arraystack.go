@@ -37,3 +37,7 @@ func (a *ArrayStack) Peek() interface{} {
 func (a *ArrayStack) IsEmpty() bool {
 	return a.list.IsEmpty()
 }
+
+func (a *ArrayStack) String() string {
+	return a.list.String()
+}

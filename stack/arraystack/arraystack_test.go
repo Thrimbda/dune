@@ -1,10 +1,12 @@
 package arraystack
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
 	"github.com/Thrimbda/dune/list/arraylist"
+	"github.com/Thrimbda/dune/utils"
 )
 
 func TestNewArrayStack(t *testing.T) {
@@ -174,6 +176,38 @@ func TestArrayStack_IsEmpty(t *testing.T) {
 			}
 			if got := a.IsEmpty(); got != tt.want {
 				t.Errorf("ArrayStack.IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+type City struct {
+	id   int
+	name string
+}
+
+func (c *City) LessComparator(b utils.Elem) bool {
+	return c.id < b.(*City).id
+}
+func (c *City) String() string {
+	return fmt.Sprintf("%v. %v", c.id, c.name)
+}
+
+func TestArrayStack_String(t *testing.T) {
+	tests := []struct {
+		name string
+		a    *ArrayStack
+		want string
+	}{
+		{"string1", NewArrayStack(100), "()"},
+		{"string2", ConvertToArrayStack(4, 2, 3), "(2, 3)"},
+		{"string3", &ArrayStack{arraylist.ConvertToArrayList(4, 1, 2, 3)}, "(1, 2, 3)"},
+		{"string4", ConvertToArrayStack(4, []interface{}{&City{1, "Beijing"}, &City{2, "Shanghai"}, &City{3, "Xi'an"}}...), "(1. Beijing, 2. Shanghai, 3. Xi'an)"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.a.String(); got != tt.want {
+				t.Errorf("ArrayQueue.String() = %v, want %v", got, tt.want)
 			}
 		})
 	}
